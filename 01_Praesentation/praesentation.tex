@@ -1,0 +1,1071 @@
+
+\include{theme}
+
+
+\title[Softcomputing] 
+{Entscheidungsbäume -- Eine Einführung}
+
+\subtitle
+{}
+
+\author[] 
+{Michael~Dorner}
+
+\institute[Softcomputing] % (optional, but mostly needed)
+{Softcomputing}
+
+
+\date[] 
+{Erlangen, 16. Januar 2014}
+
+\subject{Seminar Künstliche Intelligenz}
+
+% \insertshortauthor, \insertshortinstitute, \insertshorttitle, \insertshortdate, ...
+%\renewcommand{\footlinetext}{\insertshortinstitute, \insertshorttitle, \insertshortdate}
+
+\AtBeginSubsection[]
+{
+    \begin{frame}<beamer>{Übersicht}
+    \begin{multicols}{2}
+        \tableofcontents[currentsection,currentsubsection]
+    \end{multicols}
+    \end{frame}
+}
+
+
+\begin{document}
+
+%\renewcommand{\thealgorithm}{}
+
+
+\begin{frame}[plain]
+  \titlepage
+\end{frame}
+
+\begin{frame}{Übersicht}
+  \begin{multicols}{2}
+        \tableofcontents
+    \end{multicols}
+\end{frame}
+
+
+\section{Entscheidungsbäume}
+
+\begin{frame}{Einfach}
+
+\nicequote{Albert Einstein}{Everything should be made as simple as possible, but not simpler.}
+
+\end{frame}
+
+
+
+
+
+\subsection{Definition}
+
+\begin{frame}{Definition}
+\subtitle{uuuuu}
+\textbf{Was ist ein Entscheidungsbaum?} \\[2em]
+\begin{Definition}
+
+\begin{itemize}[<+->]
+    \item Ein Entscheidungsbaum ist ein Baum mit folgenden Eigenschaften:
+    \begin{itemize}[<+->]
+        \item ein innerer Knoten repräsentiert ein \textcolor{ohmred}{Attribut}
+        \item eine Kante repräsentiert einen Test auf dem Attribut des Vaterknotens
+        \item ein Blatt repräsentiert eine der \textcolor{ohmgreen}{Klassen}
+    \end{itemize}
+    \item  Konstruktion eines Entscheidungsbaums
+        \begin{itemize}[<+->]
+            %\item Greedy Search
+            \item anhand der Trainingsmenge
+            \item Top-Down
+        \end{itemize}
+    \item Anwendung eines Entscheidungsbaums
+    \begin{itemize}[<+->]
+        \item Durchlaufen des Entscheidungsbaum von der Wurzel zu einem der Blätter (somit eindeutiger Pfad)
+        \item Zuordnung des Objekts zur Klasse des erreichten Blattes
+    \end{itemize}
+\end{itemize}
+
+\end{Definition}
+
+\end{frame}
+
+
+\subsubsection{Beispielentscheidungsbaum}
+
+\begin{frame}{Beispiel (1)}
+
+\textbf{Folge ich dem Vortrag aufmerksam?}\\[2em]
+
+
+\begin{center}
+\begin{tikzpicture}[level distance=1.5cm,
+level 1/.style={sibling distance=7cm},
+level 2/.style={sibling distance=2cm}]
+\tikzstyle{every node}=[rectangle,draw]    
+\node (Root) [ohmred] {Vortragsthema}
+child [visible on=<2->] {
+    node [ohmred, visible on=<4->] {Mathematiklastig}    
+    child [visible on=<5->]{ 
+        node [ohmgreen] {nein} 
+        edge from parent node[left,draw=none] {ja}
+    }
+    child [visible on=<6->]{ 
+        node [ohmred, visible on=<7->] {Beginn} 
+        child [visible on=<8->]{
+            node [ohmgreen] {nein}
+            edge from parent node[left,draw=none] {Einsteinzitat}
+        }
+        child [visible on=<9->]{
+            node [ohmgreen] {ja}
+            edge from parent node[right,draw=none] {lustiges Katzenbild}
+        }
+        edge from parent node[right,draw=none] {nein}
+    }
+    edge from parent node[left,draw=none] {interessant $\;$}
+}
+child [visible on=<3->] {
+    node [ohmred, visible on=<10->] {Vortragender}
+    child [visible on=<11->]{ 
+        node [ohmgreen, visible on=<13->] {ja}         
+        edge from parent node[left,draw=none] {attraktive Frau}
+    }
+    child [visible on=<12->]{ 
+        node [ohmgreen, visible on=<14->] {nein} 
+        edge from parent node[right,draw=none] {unattraktiver Mann}
+    }
+    edge from parent node[right,draw=none] { $\;$ uninteressant}
+};
+\end{tikzpicture}
+\end{center}
+
+\end{frame}
+
+
+\begin{frame}{Beispiel (2)}
+
+\textbf{Wie sieht der Entscheidungsbaum als Tabelle aus?} \\[2em] 
+\centering
+\begin{tabular}{| l l l l | l |} \hline
+    \textbf{\textcolor{ohmred}{Vortragsthema}} & \textbf{\textcolor{ohmred}{Mathematiklastig}} & \textbf{\textcolor{ohmred}{Vortragender}} & \textbf{\textcolor{ohmred}{Beginn}} & \textbf{\textcolor{ohmgreen}{Aufmerksam?}} \\ \hline
+    interessant & nein & Frau & Katzenbild & ja \\
+    uninteressant & ja & Frau & Definition & ja \\
+    uninteressant & ja & Mann & Definition & nein \\
+    uninteressant & nein & Mann & Definition & nein \\
+    interessant & nein & Mann & Katzenbild & ja \\
+    interessant & ja & Mann & Definition & nein \\ \hline
+\end{tabular}
+
+\end{frame}
+
+\subsection{Konstruktion}
+\begin{frame}{Konstruktion}
+
+\textbf{Wie konstruiere ich Entscheidungsbäume generisch?}\\[2em]
+
+
+
+\begin{algorithm}[H]
+\caption{Konstruktion von Entscheidungsbäumen}
+\begin{enumerate}[<+->]
+    \item Wähle ein (bestes) Attribut
+    \item Erstelle Knoten für dieses Attribut
+    \item Füge für jeden Attributwert eine Verzweigung zu dem neuen Knoten
+    \item Partitioniere die Trainingsdaten entsprechend der Attributwerte
+    \item Wiederhole \textcolor{ohmblue}{1.} -- \textcolor{ohmblue}{4.}, bis alle Daten im neuen Knoten der gleichen Klasse angehören
+\end{enumerate}
+\end{algorithm}
+
+\end{frame}
+
+
+\subsubsection{Beispielkonstruktion}
+\begin{frame}{Beispielkonstruktion eines Entscheidungsbaums (1)} 
+
+\textbf{Möchte ich jetzt schlafen?} \\[2em]
+
+\pause
+
+\begin{columns}[c]
+    \begin{column}{0.5\linewidth}
+        \begin{tabular}{| l l | l |}\hline
+            \textbf{\textcolor{ohmred}{Müde}} & \textbf{\textcolor{ohmred}{Bett}} & \textbf{\textcolor{ohmgreen}{Schlafen?}} \\ \hline
+            nein & nein & nein \\
+            nein & ja & nein \\
+            ja & nein & nein \\
+            ja & ja & ja \\ \hline
+        \end{tabular}
+    \end{column} \pause
+    \begin{column}{0.5\linewidth}
+        \begin{tikzpicture}[level distance=1.5cm,
+            level 1/.style={sibling distance=2cm},
+            level 2/.style={sibling distance=1cm}]
+            \tikzstyle{every node}=[rectangle,draw]    
+            \node (Root) [visible on=<1->, ohmred] {Müde}
+            child [visible on=<2->] {
+                node [visible on=<4->, ohmred] {Bett}
+                child [visible on=<5->] {
+                    node [visible on=<6->, ohmgreen] {ja}
+                    edge from parent node[left,draw=none] {ja}
+                } 
+                child [visible on=<5->] {
+                    node [visible on=<7->, ohmgreen] {nein}
+                    edge from parent node[right,draw=none] {nein}
+               }   
+                edge from parent node[left,draw=none] {ja}
+            }
+            child [visible on=<2->] {
+                node [visible on=<3->, ohmgreen] {nein}      
+                edge from parent node[right,draw=none] {nein}
+            };
+        \end{tikzpicture}
+    \end{column}
+\end{columns}
+
+
+
+\end{frame}
+
+
+
+
+\begin{frame}{Beispielkonstruktion eines Entscheidungsbaums (2)} 
+
+\textbf{Gibt es einen weiteren/besseren Entscheidungsbaum?} \\[2em]
+
+\pause
+
+Ja, offensichtlich, denn \\[1em]
+
+\begin{columns}[b]
+    \column[]{0.45\textwidth} \centering
+\begin{tikzpicture}[level distance=1.5cm,
+level 1/.style={sibling distance=2cm},
+level 2/.style={sibling distance=1cm}]
+\tikzstyle{every node}=[rectangle,draw]    
+\node (Root) [ohmred] {Bett}
+child {
+    node [ohmred] {Müde}  
+    child {
+        node [ohmgreen] {ja}
+        edge from parent node[left,draw=none] {ja}
+    } 
+    child {
+        node [ohmgreen] {nein}
+        edge from parent node[right,draw=none] {nein}
+   }   
+    edge from parent node[left,draw=none] {ja}
+}
+child {
+    node [ohmgreen] {nein}      
+    edge from parent node[right,draw=none] {nein}
+};
+\end{tikzpicture}
+
+    \column[]{0.45\textwidth} \centering
+\begin{tikzpicture}[level distance=1.5cm,
+level 1/.style={sibling distance=2cm},
+level 2/.style={sibling distance=1cm}]
+\tikzstyle{every node}=[rectangle,draw]    
+\node (Root) [ohmred] {Müde}
+child {
+    node [ohmred] {Bett}  
+    child {
+        node [ohmgreen] {ja}
+        edge from parent node[left,draw=none] {ja}
+    } 
+    child {
+        node [ohmgreen] {nein}
+        edge from parent node[right,draw=none] {nein}
+   }   
+    edge from parent node[left,draw=none] {ja}
+}
+child {
+    node [ohmgreen] {nein}      
+    edge from parent node[right,draw=none] {nein}
+};
+\end{tikzpicture}
+\end{columns}
+
+\vfill
+
+\pause
+
+\begin{center}
+Welches ist das beste Attribut?
+\end{center}
+
+\end{frame}
+
+
+
+
+
+\section{ID3 Algorithmus}
+
+\subsection{Exkurs in die Physik}
+
+
+\begin{frame}{Exkurs in die Physik}
+
+\textbf{Warum haben Atomkraftwerke Kühltürme?}\\[2em]
+\centering
+\includegraphics[height=0.8\textheight]{src/akw.jpg}
+
+\end{frame}
+
+
+
+\begin{frame}{Blick zur Tafel}
+
+\centering
+
+\includegraphics[width=\linewidth]{src/blackboard}
+
+\end{frame}
+
+
+
+\subsection{Informationsgehalt und -gewinn}
+
+\begin{frame}{Informationsgehalt \& Informationsgewinn}
+\begin{Definition}
+
+Den mittleren Informationsgehalt $H(P)$ einer Wahrscheinlichkeitsverteilung $P$ über einer endlichen Menge $S$ bezeichnet man als Entropie von $P$:
+\begin{equation*}
+    H(S) = - \sum_{i=1}^{} P(C_i) \log_2 P(C_i)
+\end{equation*}
+mit $P(C_i)$ als Auftrittswahrscheinlichkeit der Klasse $C_i$ in $S$.
+
+\end{Definition}
+
+\pause
+
+\begin{Definition}
+Um den Informationsgewinn (\textit{Information Gain}) von Attribut $A$ zu quantifizieren, bilden wir die Differenz der ursprünglichen Information und der Restinformation:
+\begin{equation*}
+G(S, A) = H(S) - \sum_{i \in \text{Werte}(A)} \frac{|S_i|}{|S|}H(S_i)
+\end{equation*}
+mit \begin{itemize}
+ \item $\text{Werte}(A)$ als alle Ausprägungen von $A$ und
+ \item $S_i$ als Teilmenge von $S$, wobei $A$ den Wert $i$ annimmt.
+ \end{itemize}
+
+\end{Definition}
+
+
+\end{frame}
+
+\subsubsection{Beispiel}
+
+
+\begin{frame}{Beispiel (1)}
+
+\textbf{Welchen Informationsgehalt (Entropie) haben folgende Nachrichten?}\\[1em]
+
+\begin{itemize}[<+->]
+    \item \texttt{'aaaa'}: 
+        \begin{itemize}
+            \item Wahrscheinlichkeitsverteilung: 
+            \[P(\texttt{'a'}) = \frac{4}{4}\]        
+            \item Entropie:
+    \[H(\texttt{'aaaa'}) = - \left( \frac{4}{4} \log_2 \frac{4}{4} \right) = 0 \]
+        \end{itemize}   
+    \item \texttt{'aabc'}: 
+        \begin{itemize}[<+->]
+            \item Wahrscheinlichkeitsverteilungen: 
+            \[P(\texttt{'a'}) = \frac{2}{4}, \qquad P(\texttt{'b'}) = P(\texttt{'c'}) = \frac{1}{4}\]        
+            \item Entropie:
+    \[H(\texttt{'aabc'}) = - \left( \frac{2}{4} \log_2 \frac{2}{4} + \frac{1}{4} \log_2 \frac{1}{4} + \frac{1}{4} \log_2 \frac{1}{4} \right) = 1.5 \]        
+        \end{itemize}        
+\end{itemize}
+
+\end{frame}
+
+
+
+\begin{frame}{Beispiele (2)}
+
+\begin{itemize}[<+->]
+   \item \texttt{'abcd'}: 
+        \begin{itemize}[<+->]
+            \item Wahrscheinlichkeitsverteilungen: 
+            \[P(\texttt{'a'}) = P(\texttt{'b'}) = P(\texttt{'c'}) = P(\texttt{'d'}) = \frac{1}{4}\]        
+            \item Entropie:
+    \[H(\texttt{'abcd'}) = - \left( \frac{1}{4} \log_2 \frac{1}{4} + \frac{1}{4} \log_2 \frac{1}{4} + \frac{1}{4} \log_2 \frac{1}{4} + \frac{1}{4} \log_2 \frac{1}{4} \right) = 2 \]
+        \end{itemize} 
+    \item \texttt{'aaaabcdefg'}: 
+        \begin{itemize}[<+->]
+            \item Wahrscheinlichkeitsverteilungen: 
+            \[P(\texttt{'a'}) = \frac{4}{10}, \quad P(\texttt{'b'}) = P(\texttt{'c'}) = P(\texttt{'d'}) = P(\texttt{'e'}) = P(\texttt{'f'}) = P(\texttt{'g'}) = \frac{1}{10}\]        
+            \item Entropie:
+    \[H(\texttt{'aaaabcdefg'}) = - \left( \frac{4}{10} \log_2 \frac{4}{10} + 6 \cdot \left( \frac{1}{10} \log_2 \frac{1}{10} \right) \right) = 2{,}52193 \]
+        \end{itemize}
+\end{itemize} 
+\end{frame}
+
+
+
+\subsection{Pseudocode}
+\begin{frame}{Pseudocode}
+\begin{algorithm}[H]
+\caption{ID3 Algorithmus}
+\begin{enumerate}
+    \item Wähle \sout{\textcolor{gray}{ein (bestes) Attribut}} das Attribut mit größtem Informationgewinn
+    \item Erstelle Knoten für dieses Attribut
+    \item Füge für jeden Attributwert eine Verzweigung zu dem neuen Knoten
+    \item Partitioniere die Trainingsdaten entsprechend der Attributwerte
+    \item Wiederhole \textcolor{ohmblue}{1.} -- \textcolor{ohmblue}{4.}, bis alle Daten im neuen Knoten der gleichen Klasse angehören
+\end{enumerate}
+\end{algorithm}
+\end{frame}
+
+\subsubsection{Beispiel}
+
+
+
+\begin{frame}{Beispiel}
+\textbf{Informationsgehalt von Krankheit}\\[1em]
+
+\begin{tabular}{|l l l l l l | l |}\hline
+\textbf{Patient} & \textbf{\textcolor{ohmred}{Fieber}} & \textbf{\textcolor{ohmred}{Husten}} & \textbf{\textcolor{ohmred}{Röntgen}} & \textbf{\textcolor{ohmred}{BSG}} & \textbf{\textcolor{ohmred}{Abhören}} &\textbf{\textcolor{ohmgreen}{Krankheit}}\\ \hline
+1 & hoch & stark & Flocken & normal & blubbernd & Lungenentzündung \\
+2 & mittel & stark & Flocken & normal & blubbernd & Lungenentzündung \\
+3 & niedrig & leicht & Punkt & normal & fiepend & Lungenentzündung \\
+4 & hoch & mittel & Flocken & normal & blubbernd & Lungenentzündung \\
+5 & mittel & leicht & Flocken & normal & blubbernd & Lungenentzündung \\
+6 & ohne & leicht & Streifen & normal & normal & Tuberkulose \\
+7 & hoch & stark & Loch & schnell & fiepend & Tuberkulose \\
+8 & niedrig & leicht & Streifen & normal & normal & Tuberkulose \\
+9 & ohne & leicht & Punkt & schnell & fiepend & Tuberkulose \\
+10 & niedrig & mittel & Flocken & schnell & normal & Tuberkulose \\ \hline 
+\end{tabular}
+
+\vfill
+
+\pause 
+
+\[H(S) = - \sum_{i=1}^{} P(C_i) \log_2 P(C_i) = - \nicefrac{5}{10} \log_2 \nicefrac{5}{10} - \nicefrac{5}{10} \log_2 \nicefrac{5}{10} = 1\]
+
+\end{frame}
+
+
+
+\begin{frame}{Beispiel}
+
+\textbf{Informationsgehalt für Fieber}\\[1em]
+
+\begin{tabular}{|l l l l l l | l |}\hline
+\textbf{Patient} & \textbf{\textcolor{ohmred}{Fieber}} & \textbf{\textcolor{ohmred}{Husten}} & \textbf{\textcolor{ohmred}{Röntgen}} & \textbf{\textcolor{ohmred}{BSG}} & \textbf{\textcolor{ohmred}{Abhören}} &\textbf{\textcolor{ohmgreen}{Krankheit}}\\ \hline
+1 & hoch & stark & Flocken & normal & blubbernd & Lungenentzündung \\
+2 & mittel & stark & Flocken & normal & blubbernd & Lungenentzündung \\
+3 & niedrig & leicht & Punkt & normal & fiepend & Lungenentzündung \\
+4 & hoch & mittel & Flocken & normal & blubbernd & Lungenentzündung \\
+5 & mittel & leicht & Flocken & normal & blubbernd & Lungenentzündung \\
+6 & ohne & leicht & Streifen & normal & normal & Tuberkulose \\
+7 & hoch & stark & Loch & schnell & fiepend & Tuberkulose \\
+8 & niedrig & leicht & Streifen & normal & normal & Tuberkulose \\
+9 & ohne & leicht & Punkt & schnell & fiepend & Tuberkulose \\
+10 & niedrig & mittel & Flocken & schnell & normal & Tuberkulose \\ \hline 
+\end{tabular}
+
+\vfill
+
+\begin{tabular}{| l<{\onslide<2->} | l<{\onslide<3->} | l<{\onslide<5->} | l<{\onslide<6->} | l<{\onslide<7->} | l<{\onslide} |}\hline 
+\textbf{\textcolor{ohmred}{Fieber}} & \textbf{Anzahl} & \textbf{LE} & \textbf{TBC} & \textbf{Formel} & \textbf{Ergebnis} \\ \hline
+hoch & 3 & $ \nicefrac{2}{3}$ & $ \nicefrac{1}{3}$ & $ \nicefrac{3}{10} \cdot \left(- \nicefrac{2}{3} \log_2 \nicefrac{2}{3} - \nicefrac{1}{3} \log_2 \nicefrac{1}{3} \right)$ & $=0{,}2755$\\ \hline
+mittel & 2 & $ \nicefrac{2}{2}$ & $\nicefrac{0}{2}$ & $ \nicefrac{2}{10} \cdot \left(- \nicefrac{2}{2} \log_2 \nicefrac{2}{2} - \nicefrac{0}{2} \log_2 \nicefrac{0}{2} \right)$ & $=0$\\ \hline
+niedrig & 3 & $\nicefrac{1}{3}$ & $\nicefrac{2}{3}$ & $\nicefrac{3}{10} \cdot \left(- \nicefrac{1}{3} \log_2 \nicefrac{1}{3} - \nicefrac{2}{3} \log_2 \nicefrac{2}{3} \right)$ & $=0{,}2755$\\ \hline
+ohne & 2 & $\nicefrac{0}{2}$ & $\nicefrac{2}{2}$ & $\nicefrac{2}{10} \cdot \left(- \nicefrac{0}{2} \log_2 \nicefrac{0}{2} - \nicefrac{2}{2} \log_2 \nicefrac{2}{2} \right)$ & $=0$\\ \hline
+\multicolumn{5}{r|}{$\boldsymbol{\sum}$} & \onslide<8->{$0{,}5510$} \\ \cline{6-6}
+\end{tabular}
+
+
+\end{frame}
+
+
+
+
+\begin{frame}{Beispiel}
+
+\textbf{Informationsgewinn für Fieber}
+
+\[ \displaystyle
+\begin{array}{r l l l}
+    G(S, \text{Fieber}) &= H(S) &- \sum\limits_{\substack{i \in \{\text{hoch, mittel,} \\ \text{niedrig, ohne}\}}} \cfrac{|S_i|}{|S|}H(S_i) &= \pause \\[2em]
+    &= 1 &-0{,}5510 &= 0{,}4490 
+\end{array}
+\]
+
+\end{frame}
+
+
+
+\begin{frame}{Beispiel}
+
+\textbf{Informationsgehalt für Husten} \\[1em]
+
+\begin{tabular}{|l l l l l l | l |}\hline
+\textbf{Patient} & \textbf{\textcolor{ohmred}{Fieber}} & \textbf{\textcolor{ohmred}{Husten}} & \textbf{\textcolor{ohmred}{Röntgen}} & \textbf{\textcolor{ohmred}{BSG}} & \textbf{\textcolor{ohmred}{Abhören}} &\textbf{\textcolor{ohmgreen}{Krankheit}}\\ \hline
+1 & hoch & stark & Flocken & normal & blubbernd & Lungenentzündung \\
+2 & mittel & stark & Flocken & normal & blubbernd & Lungenentzündung \\
+3 & niedrig & leicht & Punkt & normal & fiepend & Lungenentzündung \\
+4 & hoch & mittel & Flocken & normal & blubbernd & Lungenentzündung \\
+5 & mittel & leicht & Flocken & normal & blubbernd & Lungenentzündung \\
+6 & ohne & leicht & Streifen & normal & normal & Tuberkulose \\
+7 & hoch & stark & Loch & schnell & fiepend & Tuberkulose \\
+8 & niedrig & leicht & Streifen & normal & normal & Tuberkulose \\
+9 & ohne & leicht & Punkt & schnell & fiepend & Tuberkulose \\
+10 & niedrig & mittel & Flocken & schnell & normal & Tuberkulose \\ \hline 
+\end{tabular}
+
+\vfill
+
+\begin{tabular}{| l<{\onslide<2->} | l<{\onslide<3->} | l<{\onslide<5->} | l<{\onslide<6->} | l<{\onslide<7->} | l<{\onslide} |}\hline 
+\textbf{\textcolor{ohmred}{Husten}} & \textbf{Anzahl} & \textbf{LE} & \textbf{TBC} & \textbf{Formel} & \textbf{Ergebnis} \\ \hline  
+stark & 3 & $ \nicefrac{2}{3}$ & $ \nicefrac{1}{3}$ & $ \nicefrac{3}{10} \cdot \left(- \nicefrac{2}{3} \log_2 \nicefrac{2}{3} - \nicefrac{1}{3} \log_2 \nicefrac{1}{3} \right)$ & $=0{,}2755$ \\ \hline 
+mittel & 2 & $ \nicefrac{1}{2}$ & $\nicefrac{1}{2}$ & $ \nicefrac{2}{10} \cdot \left(- \nicefrac{1}{2} \log_2 \nicefrac{1}{2} - \nicefrac{1}{2} \log_2 \nicefrac{1}{2} \right)$ & $=0{,}2$  \\ \hline 
+leicht & 5 & $\nicefrac{2}{5}$ & $\nicefrac{4}{5}$ & $\nicefrac{3}{10} \cdot \left(- \nicefrac{2}{5} \log_2 \nicefrac{2}{5} - \nicefrac{3}{5} \log_2 \nicefrac{3}{5} \right)$ & $=0{,}4855$  \\ \hline  
+\multicolumn{5}{r|}{$\boldsymbol{\sum}$} & \onslide<8->{$0{,}9610$} \\ \cline{6-6}
+\end{tabular}
+
+\end{frame}
+
+
+\begin{frame}{Beispiel}
+
+\textbf{Informationsgewinn für Husten}
+
+\[
+\begin{array}{r l l l}
+    G(S, \text{Husten}) &= H(S) &- \sum\limits_{\substack{i \in \{\text{stark, } \\ \text{mittel,leicht}\}}} \cfrac{|S_i|}{|S|}H(S_i) &= \pause \\[1em]
+    &= 1 &-0{,}9610 &= 0{,}0390 
+\end{array}
+\]
+
+\end{frame}
+
+
+
+
+
+\begin{frame}{Beispiel}
+
+\textbf{Informationsgehalt für Abhören} \\[1em]
+
+\begin{tabular}{|l l l l l l | l |}\hline
+\textbf{Patient} & \textbf{\textcolor{ohmred}{Fieber}} & \textbf{\textcolor{ohmred}{Husten}} & \textbf{\textcolor{ohmred}{Röntgen}} & \textbf{\textcolor{ohmred}{BSG}} & \textbf{\textcolor{ohmred}{Abhören}} &\textbf{\textcolor{ohmgreen}{Krankheit}}\\ \hline
+1 & hoch & stark & Flocken & normal & blubbernd & Lungenentzündung \\
+2 & mittel & stark & Flocken & normal & blubbernd & Lungenentzündung \\
+3 & niedrig & leicht & Punkt & normal & fiepend & Lungenentzündung \\
+4 & hoch & mittel & Flocken & normal & blubbernd & Lungenentzündung \\
+5 & mittel & leicht & Flocken & normal & blubbernd & Lungenentzündung \\
+6 & ohne & leicht & Streifen & normal & normal & Tuberkulose \\
+7 & hoch & stark & Loch & schnell & fiepend & Tuberkulose \\
+8 & niedrig & leicht & Streifen & normal & normal & Tuberkulose \\
+9 & ohne & leicht & Punkt & schnell & fiepend & Tuberkulose \\
+10 & niedrig & mittel & Flocken & schnell & normal & Tuberkulose \\ \hline 
+\end{tabular}
+
+\vfill
+
+\begin{tabular}{| l<{\onslide<2->} | l<{\onslide<3->} | l<{\onslide<5->} | l<{\onslide<6->} | l<{\onslide<7->} | l<{\onslide} |}\hline 
+\textbf{\textcolor{ohmred}{Fieber}} & \textbf{Anzahl} & \textbf{LE} & \textbf{TBC} & \textbf{Formel} & \textbf{Ergebnis} \\ \hline 
+blubbernd & 4 & $ \nicefrac{4}{4}$ & $ \nicefrac{0}{4}$ & $ \nicefrac{4}{10} \cdot \left(- \nicefrac{4}{4} \log_2 \nicefrac{4}{4} - \nicefrac{0}{4} \log_2 \nicefrac{0}{4} \right)$ & $=0$\\ \hline 
+fiepend & 3 & $ \nicefrac{1}{3}$ & $\nicefrac{2}{3}$ & $ \nicefrac{3}{10} \cdot \left(- \nicefrac{1}{3} \log_2 \nicefrac{1}{3} - \nicefrac{2}{3} \log_2 \nicefrac{2}{3} \right)$ & $=0{,}2755$\\ \hline 
+normal & 3 & $\nicefrac{0}{3}$ & $\nicefrac{3}{3}$ & $\nicefrac{3}{10} \cdot \left(- \nicefrac{0}{3} \log_2 \nicefrac{0}{3} - \nicefrac{3}{3} \log_2 \nicefrac{3}{3} \right)$ & $=0$\\ \hline 
+\multicolumn{5}{r|}{$\boldsymbol{\sum}$} & \onslide<8->{$0{,}2755$} \\ \cline{6-6}
+\end{tabular}
+
+
+\end{frame}
+
+
+\begin{frame}{Beispiel}
+
+Informationsgewinn für Abhören
+
+\[
+\begin{array}{r l l l}
+    G(S, \text{Abhören}) &= H(S) &- \sum\limits_{\substack{i \in \{\text{blubbernd} \\ \text{fiepend, normal}\}}} \cfrac{|S_i|}{|S|}H(S_i) &= \pause \\[1em]
+    &= 1 &-0{,}2755 &= 0{,}7245 
+\end{array}
+\]
+
+\end{frame}
+
+
+
+\begin{frame}{Beispiel}
+
+\textbf{Wahl des ersten Knoten} \\[1em]
+
+\begin{center}
+\begin{tabular}{|l l l l l l|} \hline
+\textbf{\textcolor{ohmred}{Fieber}} & \textbf{\textcolor{ohmred}{Husten}} & \textbf{\textcolor{ohmred}{Röntgen}} & \textbf{\textcolor{ohmred}{BSG}} & \textbf{\textcolor{ohmred}{Abhören}} &\textbf{\textcolor{ohmgreen}{Krankheit}}\\ \hline
+0{,}4490 & 0{,}0390 & 0{,}4390 & 0{,}3958 & 0{,}7245 & 1 \\ \hline
+\end{tabular}
+
+\vfill
+
+\pause
+
+\begin{tikzpicture}[level distance=1.5cm,
+level 1/.style={sibling distance=4cm},
+level 2/.style={sibling distance=2cm}]
+\tikzstyle{every node}=[rectangle,draw]    
+\node (Root) [ohmred] {Abhören}
+child {
+    node [ohmgreen] {Lungenentzündung}    
+    edge from parent node[left,draw=none] {blubbernd $\;$}
+}
+child {
+    node [ohmred] {?}
+    edge from parent node[right,draw=none] { $\;$ fiepend}
+}
+child {
+    node [ohmgreen] {TBC}
+    edge from parent node[right,draw=none] { $\;$ normal}
+};
+\end{tikzpicture}
+\end{center}
+
+
+\end{frame}
+
+
+
+
+\begin{frame}{Beispiel}
+
+\textbf{Informationsgehalt für Fieber} \\[1em]
+
+\begin{tabu}{|l l l l l l | l |}\hline
+\textbf{Patient} & \textbf{\textcolor{ohmred}{Fieber}} & \textbf{\textcolor{ohmred}{Husten}} & \textbf{\textcolor{ohmred}{Röntgen}} & \textbf{\textcolor{ohmred}{BSG}} & \textbf{\textcolor{ohmred}{Abhören}} &\textbf{\textcolor{ohmgreen}{Krankheit}}\\ \hline
+\rowfont{\color{gray}}1 & hoch & stark & Flocken & normal & blubbernd & Lungenentzündung \\
+\rowfont{\color{gray}}2 & mittel & stark & Flocken & normal & blubbernd & Lungenentzündung \\
+3 & niedrig & leicht & Punkt & normal & fiepend & Lungenentzündung \\
+\rowfont{\color{gray}}4 & hoch & mittel & Flocken & normal & blubbernd & Lungenentzündung \\
+\rowfont{\color{gray}}5 & mittel & leicht & Flocken & normal & blubbernd & Lungenentzündung \\
+\rowfont{\color{gray}}6 & ohne & leicht & Streifen & normal & normal & Tuberkulose \\
+7 & hoch & stark & Loch & schnell & fiepend & Tuberkulose \\
+\rowfont{\color{gray}}8 & niedrig & leicht & Streifen & normal & normal & Tuberkulose \\
+9 & ohne & leicht & Punkt & schnell & fiepend & Tuberkulose \\
+\rowfont{\color{gray}}10 & niedrig & mittel & Flocken & schnell & normal & Tuberkulose \\ \hline 
+\end{tabu}
+
+\vfill
+
+\begin{tabular}{| l<{\onslide<2->} | l<{\onslide<3->} | l<{\onslide<5->} | l<{\onslide<6->} | l<{\onslide<7->} | l<{\onslide} |}\hline 
+\textbf{\textcolor{ohmred}{Fieber}} & \textbf{Anzahl} & \textbf{LE} & \textbf{TBC} & \textbf{Formel} & \textbf{Ergebnis} \\ \hline 
+niedrig & 1 & $ \nicefrac{1}{1}$ & $ \nicefrac{0}{1}$ & $ \nicefrac{1}{3} \cdot \left(- \nicefrac{1}{1} \log_2 \nicefrac{1}{1} - \nicefrac{0}{1} \log_2 \nicefrac{0}{1} \right)$ & $=0$\\ \hline 
+hoch & 1 & $ \nicefrac{0}{1}$ & $\nicefrac{1}{1}$ & $ \nicefrac{1}{3} \cdot \left(- \nicefrac{0}{1} \log_2 \nicefrac{0}{1} - \nicefrac{1}{1} \log_2 \nicefrac{1}{1} \right)$ & $=0$\\ \hline 
+ohne & 1 & $\nicefrac{0}{1}$ & $\nicefrac{1}{1}$ & $\nicefrac{1}{3} \cdot \left(- \nicefrac{0}{1} \log_2 \nicefrac{0}{1} - \nicefrac{1}{11} \log_2 \nicefrac{1}{1} \right)$ & $=0$\\ \hline 
+\multicolumn{5}{r|}{$\boldsymbol{\sum}$} & \onslide<7->{$0$} \\ \cline{6-6}
+\end{tabular}
+
+
+\end{frame}
+
+
+\begin{frame}{Beispiel}
+
+\textbf{Informationsgewinn für Fieber}\\[1em]
+
+\[
+\begin{array}{r l l l}
+    G(S, \text{Fieber}) &= H(S) &- \sum\limits_{\substack{i \in \{\text{niedrig} \\ \text{hoch, normal}\}}} \cfrac{|S_i|}{|S|}H(S_i) &= \pause \\[1em]
+    &= 0{,}9183 &-0 &= 0{,}9183
+\end{array}
+\]
+
+\end{frame}
+
+
+\begin{frame}{Beispiel}
+
+\textbf{Resultierender Entscheidungsbaum} \\[2em]
+
+\begin{center}
+
+\begin{tikzpicture}[level distance=1.5cm,
+level 1/.style={sibling distance=4cm},
+level 2/.style={sibling distance=3cm}]
+\tikzstyle{every node}=[rectangle,draw]    
+\node (Root) [ohmred] {Abhören}
+child {
+    node [ohmgreen] {Lungenentzündung}    
+    edge from parent node[left,draw=none] {blubbernd $\quad$}
+}
+child {
+    node [ohmred] {Fieber}
+    child {
+        node [ohmgreen] {Lungenentzündung}    
+        edge from parent node[left,draw=none] {niedrig $\;$}
+    }
+    child {
+        node [ohmgreen] {TBC}    
+        edge from parent node[left,draw=none] {hoch }
+    }
+    child {
+        node [ohmgreen] {TBC}    
+        edge from parent node[right,draw=none] {$\;$ ohne}
+    }
+    edge from parent node[right,draw=none] {fiepend}
+}
+child {
+    node [ohmgreen] {TBC}
+    edge from parent node[right,draw=none] { $\quad$ normal}
+};
+\end{tikzpicture}
+\end{center}
+
+
+\end{frame}
+
+
+
+
+
+\section{Anwendung -- Bewegungsdaten}
+\subsection{Einführung}
+\begin{frame}{Einführung}
+\textbf{Allgemeines}\\[1em]
+\begin{itemize}[<+->]
+    \item Daten aus meiner Bachelorarbeit
+    \item Nicht vollständig
+    \item Uniformisierte Daten (vier Klassen à 876 Samples)
+    \item GPS Geschwindigkeit und Beschleunigungslevel
+\end{itemize}
+
+\vfill \pause
+
+\textbf{Berechnung}\\[1em]
+Betrag der Beschleunigung 
+\begin{equation}
+    m_i = \sqrt{x_i^2 + y_i^2 + z_i^2}, \qquad i = 1, \dots, n 
+\end{equation}
+mit $x_i, y_i, z_i$ als Beschleunigungswerte entlang der entsprechenden Achse für jeden Datenpunkt $i$ der gesamtem Samples $n$.
+
+\end{frame}
+
+
+\begin{frame}{Filterung}
+    \centering 
+    \setlength\figureheight{0.4\textwidth} 
+    \setlength\figurewidth{0.8\textwidth} 
+    \input{src/nfmoving.tikz} 
+\end{frame}
+
+
+
+\begin{frame}{Unterscheidung}
+    \centering 
+    \setlength\figureheight{0.45\textwidth} 
+    \setlength\figurewidth{0.8\textwidth} 
+    \input{src/filteredAccelerationLevel.tikz} 
+\end{frame}
+
+
+
+\subsection{Entscheidungsbaum}
+\begin{frame}{Entscheidungsbaum für Bewegungsmuster}
+    \centering 
+    \setlength\figureheight{0.45\textwidth} 
+    \setlength\figurewidth{0.8\textwidth} 
+    \input{src/fullTree.tikz} 
+    
+    Tiefe: 21
+\end{frame}
+
+
+\subsection{Under- \& Overfitting}
+
+\begin{frame}{Under- \& Overfitting (1)}
+
+\textbf{Was ist Overfitting? -- Eine anschauliche Erklärung}
+
+Klassifikation einer Eiche anhand ihrer Silhouette
+
+\pause
+
+\begin{center}
+    \includegraphics[height=0.9\textheight]{src/baumsilhouette}
+\end{center}
+
+
+\end{frame}
+
+
+
+\begin{frame}{Blick zur Tafel}
+\centering
+\includegraphics[width=\linewidth]{src/blackboard}
+\end{frame}
+
+
+
+\begin{frame}{Under- \& Overfitting (1)}
+
+\textbf{Was ist Overfitting? -- Eine anschauliche Erklärung}
+
+Klassifikation einer Eiche anhand ihrer Silhouette
+
+\begin{center}
+\includegraphics[height=0.9\textheight]{src/baumsilhouette} \pause
+\includegraphics[height=0.9\textheight]{src/baumsilhouettewinter}
+\end{center}
+
+
+\end{frame}
+
+
+\begin{frame}{Under- \& Overfitting (1)}
+
+\textbf{Was ist Overfitting? -- Eine anschauliche Erklärung}
+
+Klassifikation einer Eiche anhand ihrer Silhouette
+
+\begin{center}
+\includegraphics[height=0.9\textheight]{src/lollischwarz} \pause
+\includegraphics[height=0.9\textheight]{src/lollibunt}
+\end{center}
+
+
+\end{frame}
+
+
+
+
+
+\begin{frame}{Under- \& Overfitting (2)}
+
+\textbf{Was ist Overfitting? -- Eine mathematische Erklärung}\\[1em]
+      
+\setlength\figureheight{0.3\linewidth} 
+\setlength\figurewidth{0.45\linewidth} 
+
+\begin{columns}[t]
+    \begin{column}{0.5\linewidth} \pause
+        \centering 
+        \input{src/actualSample.tikz} 
+    \end{column}
+    \begin{column}{0.5\linewidth} \pause
+        \centering 
+        \input{src/underfittingSample.tikz} 
+    \end{column}
+\end{columns}
+
+\begin{columns}[t]
+    \begin{column}{0.5\linewidth} \pause
+        \centering 
+    \input{src/goodfittingSample.tikz} 
+    \end{column}
+    \begin{column}{0.5\linewidth} \pause
+        \centering 
+    \input{src/overfittingSample.tikz} 
+    \end{column}
+\end{columns}
+
+
+\end{frame}
+
+
+
+
+
+
+
+\begin{frame}{Under- \& Overfitting (3)}
+
+\textbf{Was ist Overfitting? -- Eine anwendungsorientierte Erklärung}\\[1em]
+
+    \centering 
+    \setlength\figureheight{0.45\textwidth} 
+    \setlength\figurewidth{0.8\textwidth} 
+    \input{src/overfitting.tikz} 
+\end{frame}
+
+
+
+\subsection{Optimierungen}
+
+\begin{frame}{Optimierungen}
+\begin{itemize}[<+->]
+    \item Pruning mit Schwellwert
+    \item Reduced-Error-Pruning
+    \item Cross Validation
+    
+        \pause 
+        
+        \textcolor{ohmgreen}{Trainingsdaten} und \textcolor{ohmred}{Testdaten}: \\[1em]
+        
+        \begin{tikzpicture}[rotate=0]
+    \draw[fill=ohmred] (0,0) circle [radius=0.5];
+    \clip (0,0) circle [radius=0.49];
+    \draw[fill= ohmgreen] (0,0) -- (72:1) -- (144:1);
+    \draw[fill= ohmgreen] (0,0) -- (144:1) -- (216:1);
+    \draw[fill= ohmgreen] (0,0) -- (216:1) -- (288:1);
+    \draw[fill= ohmgreen] (0,0) -- (288:1)-- (360:1);
+    \draw[] (0,0) -- (360:1);
+\end{tikzpicture}
+% 
+\begin{tikzpicture}[rotate=72]
+    \draw[fill=ohmred] (0,0) circle [radius=0.5];
+    \clip (0,0) circle [radius=0.49];
+    \draw[fill= ohmgreen] (0,0) -- (72:1) -- (144:1);
+    \draw[fill= ohmgreen] (0,0) -- (144:1) -- (216:1);
+    \draw[fill= ohmgreen] (0,0) -- (216:1) -- (288:1);
+    \draw[fill= ohmgreen] (0,0) -- (288:1)-- (360:1);
+    \draw[] (0,0) -- (360:1);
+\end{tikzpicture}
+% 
+\begin{tikzpicture}[rotate=144]
+    \draw[fill=ohmred] (0,0) circle [radius=0.5];
+    \clip (0,0) circle [radius=0.49];
+    \draw[fill= ohmgreen] (0,0) -- (72:1) -- (144:1);
+    \draw[fill= ohmgreen] (0,0) -- (144:1) -- (216:1);
+    \draw[fill= ohmgreen] (0,0) -- (216:1) -- (288:1);
+    \draw[fill= ohmgreen] (0,0) -- (288:1)-- (360:1);
+    \draw[] (0,0) -- (360:1);
+\end{tikzpicture}
+% 
+\begin{tikzpicture}[rotate=216]
+    \draw[fill=ohmred] (0,0) circle [radius=0.5];
+    \clip (0,0) circle [radius=0.49];
+    \draw[fill= ohmgreen] (0,0) -- (72:1) -- (144:1);
+    \draw[fill= ohmgreen] (0,0) -- (144:1) -- (216:1);
+    \draw[fill= ohmgreen] (0,0) -- (216:1) -- (288:1);
+    \draw[fill= ohmgreen] (0,0) -- (288:1)-- (360:1);
+    \draw[] (0,0) -- (360:1);
+\end{tikzpicture}
+% 
+\begin{tikzpicture}[rotate=288]
+    \draw[fill=ohmred] (0,0) circle [radius=0.5];
+    \clip (0,0) circle [radius=0.49];
+    \draw[fill= ohmgreen] (0,0) -- (72:1) -- (144:1);
+    \draw[fill= ohmgreen] (0,0) -- (144:1) -- (216:1);
+    \draw[fill= ohmgreen] (0,0) -- (216:1) -- (288:1);
+    \draw[fill= ohmgreen] (0,0) -- (288:1)-- (360:1);
+    \draw[] (0,0) -- (360:1);
+\end{tikzpicture}
+% 
+    \item Bagging (\underline{B}ootstrap \underline{agg}regat\underline{ing})
+    \item Induktiver Bias
+    \item Anderes Kriterium für Bestenauswahl (z.B. Gini-Index $\sum_i P(C_i)^2$)
+\end{itemize}
+
+
+\end{frame}
+
+
+
+\subsection{Ergebnisse \& Vergleiche}
+\begin{frame}{Ergebnis}
+\setlength\figureheight{0.4\textwidth} 
+\setlength\figurewidth{0.45\textwidth} 
+\begin{columns}[b]
+        \column[t]{0.45\textwidth} \centering \textbf{Kompletter Entscheidungsbaum} \\[1em] \input{src/fullTree.tikz} \\ Tiefe: 21 \\ Genauigkeit: 91{,}1 \% \pause
+        \column[t]{0.45\textwidth} \centering \textbf{Bester Entscheidungsbaum} \\[1em] \input{src/bestTree.tikz} \\ Tiefe: 8 \\ Genauigkeit: 92{,}3 \% 
+\end{columns}
+
+
+
+
+
+
+\end{frame}
+
+
+\section{Ausblick \& Zusammenfassung}
+
+\subsection{Anwendungsgebiete}
+\begin{frame}{Anwendungsgebiete}
+
+\begin{itemize}[<+->]
+    \item Medizin
+    \item Klassifikation
+    \item Regression
+    \item Data-Mining
+    \item SPAM-Filter
+\end{itemize}
+
+
+\end{frame}
+
+\subsection{Ausblick}
+\begin{frame}{Ausblick}
+\begin{itemize}[<+->]
+    \item CHAID %Chi-Quadrat-Unabhängigkeitstest verwendet
+    \item CART
+    \item C4.5 und C5.0
+    \item Entscheidungswälder
+    \item Kombination mit künstlichen neuronalen Netzen
+\end{itemize}
+
+\end{frame}
+
+
+\subsection{Zusammenfassung}
+\begin{frame}{Zusammenfassung}
+\begin{itemize}[<+->]
+    \item Was ist ein Entscheidungsbaum?
+    \item Wie konstruiere ich einen Entscheidungsbaum?
+    \item Warum haben Atomkraftwerke Kühltürme oder was ist Entropie?
+    \item Was ist Informationsgehalt und -gewinn?
+    \item Wie funktioniert der ID3-Algorithmus?
+    \item Worin liegen die Stärken und Schwächen eines Entscheidungsbaumes?
+    \item Was ist Overfitting?
+    \item Wo gibt es Optimierungsmöglichkeiten?
+    \item Was sind die Einsatzgebiete von Entscheidungsbäumen?
+    \item Welche weiteren Algorithmen für Entscheidungsbäume gibt es neben des ID3-Algorithmus' noch?
+    
+\end{itemize}
+
+
+\end{frame}
+
+
+\begin{frame}{Ende}
+\centering
+Vielen Dank für die Aufmerksamkeit! \\[3em]
+\textbf{Fragen?}
+\end{frame}
+
+
+
+
+
+%% All of the following is optional and typically not needed. 
+%\appendix
+%\section<presentation>*{\appendixname}
+%\subsection<presentation>*{For Further Reading}
+%
+%\begin{frame}[allowframebreaks]
+%  \frametitle<presentation>{For Further Reading}
+%    
+%  \begin{thebibliography}{10}
+%    
+%  \beamertemplatebookbibitems
+%  % Start with overview books.
+%
+%  \bibitem{Author1990}
+%    A.~Author.
+%    \newblock {\em Handbook of Everything}.
+%    \newblock Some Press, 1990.
+% 
+%    
+%  \beamertemplatearticlebibitems
+%  % Followed by interesting articles. Keep the list short. 
+%
+%  \bibitem{Someone2000}
+%    S.~Someone.
+%    \newblock On this and that.
+%    \newblock {\em Journal of This and That}, 2(1):50--100,
+%    2000.
+%  \end{thebibliography}
+%\end{frame}
+
+\end{document}

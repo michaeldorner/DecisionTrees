@@ -52,3 +52,7 @@ coverage.xml
 # Sphinx documentation
 docs/_build/
 
+.texpadtmp/
+.DS\_Store
+.DS_Store
+04_Bibliography

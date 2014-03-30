@@ -1,0 +1,97 @@
+\input{content/theme.tex}
+\bibliography{content/bibliography}
+
+
+\begin{document}
+
+
+%\includepdf[pages=-]{content/titlepage.pdf}
+
+\title{Introduction to Decision Trees}
+\subtitle{Seminar Paper}
+\author{\normalsize{Michael Dorner} \and \normalsize{\today}}
+\date{\vspace{1cm}\begin{center}\includegraphics[width=0.35\textwidth]{decisiontree}\end{center}}
+
+
+
+\begin{titlepage} 
+\thispagestyle{empty}
+
+\begin{flushright}    
+    \vspace*{-3em}
+    \includegraphics[scale=0.8]{content/faulogo}
+    \vspace*{1em}
+\end{flushright}
+
+%Sustainable Energy by Benni from The Noun Project
+
+\begin{center}
+    {\fontsize{60}{60} \bfseries \textsf{Decision Trees}}\\[1em]
+        
+    \noindent\rule{\textwidth}{0.5pt} \\[1em]
+    {\Large \textsf{An Introduction} } \\[4em]
+    %\noindent\rule{\textwidth}{0.5pt} \\[3em]
+    
+    \includegraphics[width=0.35\textwidth]{content/decisiontree}
+    
+    \vspace{5em}
+
+    {\sffamily \large \bfseries  Seminar paper for the course \textit{Artificial Intelligence} (KISEM)}\\[3em]
+
+
+    {  \normalsize 
+        \begin{tabular}{p{3cm} p{1cm} p{3cm}}
+        {\small \sffamily Author} & & {\small \sffamily Date} \\[0.5em]
+        Michael Dorner & & \today
+        \end{tabular}
+
+    
+    
+%        {\small \sffamily Author}\\[0.5em]
+%        Michael Dorner 
+%        \\[2em]
+%           
+%        {\small \sffamily Date}\\[0.5em]
+%        \today
+    } 
+\end{center}
+
+\end{titlepage}
+
+
+\newpage
+
+\renewcommand{\contentsname}{Table of Content}
+\tableofcontents
+\vfill
+\begin{center}
+\small{Title page graphic: Copyright by Benni from The Noun Project}
+\end{center}
+
+
+\newpage
+
+
+% Content
+
+\input{content/introduction.tex}
+\input{content/mainpart.tex}
+\input{content/conclusion.tex}
+
+
+\setcounter{section}{0}
+\renewcommand{\thesection}{\Alph{section}}
+
+
+
+\newpage
+
+\section{Bibliography}
+%\addcontentsline{toc}{section}{Bibliography}
+\printbibliography[heading=none]
+
+
+\end{document}
+
+
+

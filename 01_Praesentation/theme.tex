@@ -1,0 +1,234 @@
+\documentclass[ucs,9pt, mathserif]{beamer}
+
+\usepackage[utf8x]{inputenc}   
+\usepackage[german, ngerman]{babel}
+\usepackage{amsmath}
+\usepackage{amsfonts}   
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{nicefrac}
+\usepackage{siunitx}
+\usepackage{xstring}
+\usepackage{nicefrac}
+\usepackage{ulem}
+\usepackage{tabu}
+\usepackage[eulergreek]{sansmath}
+\usepackage{multicol}
+
+
+\usepackage{listings}
+\usepackage[ruled,vlined,german,linesnumbered, titlenotnumbered]{algorithm2e} % Algorithmenpacket
+
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{wrapfig}
+\usepackage{tikz}
+\usetikzlibrary{positioning, arrows, trees}
+\usepackage{fix-cm}
+\usepackage{pgfplots}
+\usepackage{multimedia}
+
+
+
+\pgfdeclareimage[height=0.7cm]{university-logo}{logo}
+\logo{\pgfuseimage{ohmlogo}}
+
+% large version for upper right corner of title page
+%\pgfdeclareimage[height=1.085cm]{big-university-logo}{FULogo_RGB}
+\newcommand{\titleimage}[1]{\pgfdeclareimage[height=4cm]{title-image}{#1}}
+
+
+\titlegraphic{\pgfuseimage{title-image}}
+%%% end logo
+
+% NOTE: 1cm = 0.393 in = 28.346 pt;    1 pt = 1/72 in = 0.0352 cm
+\setbeamersize{text margin right=3.5mm, text margin left=3.5mm}  % text margin
+
+% colors to be used
+\definecolor{text-grey}{rgb}{0.45, 0.45, 0.45} % grey text on white background
+\definecolor{bg-grey}{rgb}{0.66, 0.65, 0.60} % grey background (for white text)
+
+% Farben
+%\definecolor{grey}{grey}{0.5} % die Farbe grau wird definiert
+%\definecolor{light-grey}{grey}{0.95}
+
+\definecolor{ohmyellow}{cmyk}{0.01, 0.08, 0.92, 0.01}
+\definecolor{ohmblue}{cmyk}{0.94, 0.63, 0.03, 0.05}
+\definecolor{ohmred}{cmyk}{0.02, 0.94, 0.90, 0.06}
+\definecolor{ohmorange}{cmyk}{0.01, 0.57, 0.91, 0.02}
+\definecolor{ohmcoolgrey}{cmyk}{0.55, 0.31, 0.25, 0.02}
+\definecolor{ohmgreen}{cmyk}{0.83, 0.03, 0.93, 0.06}
+
+%%% colors
+\usecolortheme{lily}
+ 
+\setbeamercolor{frametitle}{fg=ohmblue}
+\setbeamercolor{title}{fg= ohmblue}
+
+\setbeamercolor*{normal text}{fg=black,bg=white}
+\setbeamercolor*{alerted text}{fg=red}
+\setbeamercolor*{example text}{fg=green}
+\setbeamercolor*{structure}{fg=ohmblue}
+
+\setbeamercolor*{block title}{fg=white,bg=black!50}
+\setbeamercolor*{block title alerted}{fg=white,bg=black!50}
+\setbeamercolor*{block title example}{fg=white,bg=black!50}
+
+\setbeamercolor*{block body}{bg=black!10}
+\setbeamercolor*{block body alerted}{bg=black!10}
+\setbeamercolor*{block body example}{bg=black!10}
+
+\setbeamercolor{bibliography entry author}{fg=ohmblue}
+\setbeamercolor{bibliography entry journal}{fg=text-grey}
+
+\setbeamercolor{item}{fg=ohmblue}
+\setbeamercolor{navigation symbols}{fg=text-grey,bg=bg-grey}
+%%% end colors
+
+
+
+\setbeamersize{sidebar width left=0cm, sidebar width right=0mm}
+\setbeamertemplate{sidebar right}{}
+\setbeamertemplate{sidebar left}{}
+%    XOR
+% \useoutertheme{sidebar}
+
+\setbeamertemplate{frametitle}
+
+\setbeamertemplate{frametitle}{%
+    \vskip-30pt \color{black}\large\bfseries%
+    \begin{minipage}[b][23pt]{90.5mm}%
+    \flushleft\insertframetitle%
+    \end{minipage}%
+}
+
+
+\setbeamertemplate{title page}{
+    \hfill%\begin{minipage}[t]{1cm} 
+        \includegraphics[scale=0.5]{src/logo.png}
+    %\end{minipage} 
+    % necessary line
+   %\begin{minipage}[b]{4.3cm} 
+   %     \small{\textsf{\textbf{Technische Hochschule Nürnberg} \\
+   %     Georg-Simon-Ohm\\[0.16cm]
+   %     Fakultät Informatik }}
+   % \end{minipage} \\
+   % \vskip0pt%\hskip3pt
+%    \begin{minipage}{15.6cm}
+%        \hspace{-1mm}\inserttitlegraphic
+%    \end{minipage}
+
+    % set the title and the author
+    \vskip14pt
+    %\parbox[top][1.35cm][c]{11cm}{\huge\inserttitle \\ \small \insertsubtitle}
+    \vskip11pt
+    \begin{center}{\Huge Seminar Künstliche Intelligenz}
+    
+        \noindent\rule{\textwidth}{0.5pt} \\[0.5em]
+        {\large\textcolor{ohmblue}{\inserttitle} } 
+        \noindent\rule{\textwidth}{0.5pt} \\[1cm]
+        \textcolor{text-grey}{Autor} \\
+        {\small \insertauthor} \\[3mm]
+    \end{center}
+    \vfill
+    \parbox[top][1.35cm][c]{11cm}{\small \insertdate} 
+}
+%%% end title page
+
+
+
+%%% headline
+\setbeamertemplate{headline}
+{
+    \vskip3pt\hspace{3.0mm}
+    \begin{minipage}[b]{8cm}
+        \sffamily \tiny \textcolor{text-grey}{\inserttitle} \\[0.5cm]
+    \end{minipage} \hfill 
+    % necessary line
+    %\begin{minipage}[t]{0.75cm} 
+        \includegraphics[scale=0.25]{src/logo.png}\hspace*{1em}
+    %\end{minipage} 
+    % necessary line
+   %\begin{minipage}[b]{2.8cm} 
+   %     \tiny{\textsf{\textbf{Technische Hochschule Nürnberg} \\
+   %     Georg-Simon-Ohm\\[0.16cm]
+   %     Fakultät Informatik }}
+   % \end{minipage} \hspace{3.0mm}
+    %\vskip-5pt\hfill\insertlogo\hspace{1.5mm} % logo on the right
+    \vskip3pt\color{black}\rule{\textwidth}{0.4pt} % horizontal line
+}
+%%% end headline
+
+%%% footline
+%\newcommand{\footlinetext}{\insertshortinstitute, \insertshorttitle, \insertshortdate}
+\setbeamertemplate{footline}{
+    %\vskip5pt\color{black}\rule{\textwidth}{0.4pt}\\ % horizontal line
+
+    %\hspace*{\fill} \makebox(0, 6)[c]{\insertpagenumber\,/\,\insertpresentationendpage} 
+    \hspace*{\fill}%
+    \llap{\usebeamertemplate*{navigation symbols} \hspace{3.5mm}}
+
+    \vskip3pt
+}
+%%% end footline
+
+
+\lstdefinestyle{code} {
+	language		= Python,
+	basicstyle		= \ttfamily,
+	identifierstyle	= \ttfamily,
+	stringstyle		= \ttfamily\color{ohmred},
+	commentstyle	= \ttfamily\color{ohmgreen},
+	keywordstyle	= \ttfamily\color{ohmblue},
+	columns			= fullflexible,
+	showstringspaces= false,
+	emphstyle 		= \color{ohmorange},
+	frame			= single,
+	morekeywords	= {REFERENCES, DATETIME},
+	emph			= {Michi},
+	framesep 		= 15pt,
+	rulesep			= 15pt,
+	framerule		= 0.25pt,
+	captionpos		= b,
+	%linewidth		= 0.75\textwidth,
+	xleftmargin 	= 15pt,
+	xrightmargin	= 15pt,
+	aboveskip		= 15pt,
+	belowskip		= 15pt
+ }
+
+
+% matlabtikz bugfix
+\newlength\figureheight 
+\newlength\figurewidth 
+
+
+\newcommand{\nicequote}[2]
+{
+    \begin{center}{\Huge \bfseries \rmfamily ``}
+        \begin{minipage}[t]{0.75\textwidth} \itshape
+            #2 
+            \begin{flushright} \vspace*{-0em}
+                 -- #1
+            \end{flushright}
+        \end{minipage} \, {\Huge \bfseries \rmfamily ''} 
+    \end{center}
+}
+
+
+
+
+\tikzset{
+    invisible/.style={opacity=0},
+    visible on/.style={alt=#1{}{invisible}},
+    alt/.code args={<#1>#2#3}{%
+      \alt<#1>{\pgfkeysalso{#2}}{\pgfkeysalso{#3}} % \pgfkeysalso doesn't change the path
+    },
+  }
+
+
+
+
+
+
+

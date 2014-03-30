@@ -1,0 +1,304 @@
+\documentclass[
+	12pt,
+	a4paper,
+	%twoside, % for two pages printing
+	pointlessnumbers, % Kein Punkt nach der letzten Ziffer
+	bibtotoc, % Literatur ins Inhaltsverzeichnis
+	halfparskip+,
+	listof=totocnumbered
+	]{scrartcl}
+
+% Packages
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[english]{babel}
+\usepackage{pdfpages}
+
+% Math
+\usepackage{amsmath}
+\usepackage{amsfonts}   
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{nicefrac}
+\usepackage{siunitx}
+\usepackage{xstring}
+
+\usepackage[ruled,vlined,english,linesnumbered]{algorithm2e}
+
+% Tabellen
+\usepackage{rotating}
+\usepackage{multirow}
+
+% Rahmen
+\usepackage{fancybox}
+\usepackage{framed}
+
+% Layout
+%\usepackage{geometry}
+\usepackage{listings}
+\usepackage{makeidx}
+\usepackage{pdflscape}
+\usepackage{thmtools}
+\usepackage{multicol}
+\usepackage[ruled,vlined,english,linesnumbered]{algorithm2e} % Algorithmenpacket
+\usepackage{fancyhdr} % Header
+\usepackage[german, plain]{fancyref}
+\usepackage[font=small, format=plain, labelfont=bf, up, textfont=it, up]{caption}
+\usepackage{xcolor,colortbl}
+\usepackage{booktabs}
+
+
+\renewcommand{\arraystretch}{1.25}
+\newcommand{\bigcell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+
+
+% Grafik
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{wrapfig}
+\usepackage{tikz}
+\usetikzlibrary{matrix, chains, positioning, automata, arrows, calc, snakes, patterns, decorations, decorations.pathmorphing, decorations.pathreplacing, decorations.markings, intersections, shadows, shapes.geometric, trees}
+\usepackage{fix-cm}
+\usepackage{pgfplots}
+\usepackage{overpic}
+\usepackage[american,cuteinductors,smartlabels]{circuitikz}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{tikz-timing}
+\usepackage{pgf-umlsd}
+
+%\usepgfplotslibrary{external}
+%\tikzexternalize{bachelorthesis}
+
+% Bibliography
+\usepackage[style=numeric]{biblatex}
+
+
+
+
+\usepackage[
+    nativepdf, 
+    pagebackref=false,
+    draft=false,
+    pdfpagelabels=false,
+    pdfstartview=FitH,
+    pdfstartpage=1,
+    bookmarks=true,
+    pdfauthor={Michael Dorner},
+    pdftitle={Bachelor Tehsis},
+    pdfsubject={Enhanced Classification },
+    pdfkeywords={words},
+    unicode=true
+]{hyperref} 
+
+
+\usepackage{bookmark}
+
+
+\newcommand{\kreis}[1]{\unitlength1ex\begin{picture}(2.5,2.5)%
+\put(0.75,0.75){\circle{2.5}}\put(0.75,0.75){\makebox(0,0){#1}}\end{picture}}
+
+\renewbibmacro*{cite}{%
+  \textbf{% ADDED
+  \printtext[bibhyperref]{%
+    \printfield{prefixnumber}%
+    \printfield{labelnumber}%
+    \ifbool{bbx:subentry}
+      {\printfield{entrysetcount}}
+%      {}}}% DELETED
+      {}}}}% ADDED
+
+
+
+
+% Definitions
+
+% matlabtikz bugfix
+\newlength\figureheight 
+\newlength\figurewidth 
+
+
+
+
+% Headerübersicht
+
+\pagestyle{plain} %eigener Seitenstil
+\fancyhf{} %alle Kopf- und Fußzeilenfelder bereinigen
+\fancyhead[LO]{\nouppercase{\textbf{\sffamily \leftmark}}} %Kopfzeile links
+\fancyhead[CO]{} %zentrierte Kopfzeile
+\fancyhead[RO]{\nouppercase{\sffamily \rightmark}} 
+
+\fancyhead[LE]{\nouppercase{\sffamily \rightmark}} %Kopfzeile links
+\fancyhead[CE]{} %zentrierte Kopfzeile
+\fancyhead[RE]{\nouppercase{\textbf{\sffamily \leftmark}}}
+
+%Kopfzeile rechts: \includegraphics[scale=0.025]{graphics/layout/siemenslogo.png}
+\renewcommand{\headrulewidth}{0.4pt} %obere Trennlinie
+\fancyfoot[LE]{\thepage} %Seitennummer
+\fancyfoot[RO]{\thepage} %Seitennummer
+%\renewcommand{\footrulewidth}{0.4pt} %untere Trennlinie
+
+\pagestyle{fancy}
+
+%\renewcommand{\partmark}[1]{\markboth
+%  {\thepart. #1}{}}
+%
+%\renewcommand{\chaptermark}[1]{\markright
+%  {\thechapter.\ #1}}
+%
+%\renewcommand{\sectionmark}[1]{}
+
+
+%\let\chapter\section % Behebung für Algorithm2e
+
+\addto\captionsUKenglish{%
+    \renewcommand{\contentsname}{Table of Contents}
+}
+
+
+% Farben
+
+\definecolor{siemensgray}{gray}{0.5} % die Farbe grau wird definiert
+\definecolor{light-gray}{gray}{0.65}
+
+\definecolor{siemensyellow}{cmyk}{0.01, 0.08, 0.92, 0.01}
+\definecolor{siemensblue}{cmyk}{0.94, 0.63, 0.03, 0.05}
+\definecolor{siemensred}{cmyk}{0.02, 0.94, 0.90, 0.06}
+\definecolor{siemensorange}{cmyk}{0.01, 0.57, 0.91, 0.02}
+\definecolor{siemenscoolgray}{cmyk}{0.55, 0.31, 0.25, 0.02}
+\definecolor{siemensgreen}{cmyk}{0.83, 0.03, 0.93, 0.06}
+
+
+
+
+
+% Index
+\makeindex
+
+
+
+% Stildefinition für listings
+\lstdefinestyle{siemens} {
+	%language		= C++,
+	basicstyle		= \ttfamily\small,
+	identifierstyle	= \ttfamily\normalsize,
+	stringstyle		= \ttfamily\small\color{siemensred},
+	commentstyle	= \ttfamily\small\color{siemensgreen},
+	keywordstyle	= \ttfamily\small\color{siemensblue},
+	columns			= fullflexible,
+	showstringspaces= false,
+	emphstyle 		= \color{siemensorange},
+	frame			= single,
+	morekeywords	= {REFERENCES, DATETIME},
+	emph			= {Michi},
+	framesep 		= 15pt,
+	rulesep			= 15pt,
+	framerule		= 0.25pt,
+	captionpos		= b,
+	%linewidth		= 0.75\textwidth,
+	xleftmargin 	= 15pt,
+	xrightmargin	= 15pt,
+	aboveskip		= 15pt,
+	belowskip		= 15pt
+ }
+ 
+\lstdefinelanguage[Objective]{C}[GNU99]{C}
+  {morekeywords={@catch,@class,@encode,@end,@finally,@implementation,%
+      @interface,@private,@protected,@protocol,@public,@selector,%
+      @synchronized,@throw,@try,BOOL,Class,IMP,NO,Nil,SEL,YES,_cmd,%
+      bycopy,byref,id,in,inout,nil,oneway,out,self,super,%
+      % The next two lines are Objective-C 2 keywords.
+      @dynamic,@package,@property,@synthesize,readwrite,readonly,%
+      assign,retain,copy,nonatomic%
+      },%
+   moredirectives={import}%
+  }%
+
+\lstdefinelanguage[GNU99]{C}[99]{C}
+  {morekeywords={asm,__asm__,__extension__,typeof,__typeof__}%
+  }%
+
+\lstdefinelanguage[99]{C}%
+  {morekeywords={_Bool,_Complex,_Imaginary,auto,break,case,char,%
+      const,continue,default,do,double,else,enum,extern,float,for,%
+      goto,if,inline,int,long,register,restrict,return,short,signed,%
+      sizeof,static,struct,switch,typedef,union,unsigned,void,volatile,%
+      while},%
+   sensitive,%
+   morecomment=[s]{/*}{*/},%
+   morecomment=[l]//,%
+   morestring=[b]",%
+   morestring=[b]',%
+   moredelim=*[directive]\#,%
+   moredirectives={define,elif,else,endif,error,if,ifdef,ifndef,line,%
+      include,pragma,undef,warning}%
+  }[keywords,comments,strings,directives]%
+
+
+
+
+\declaretheoremstyle[
+    spaceabove=1em, spacebelow=2em,
+    headfont=\normalfont\bfseries,
+    notefont=\normalfont\bfseries, notebraces={(}{)},
+    bodyfont=\normalfont,
+    shaded={bgcolor=gray!5, rulecolor=black, rulewidth=0.5pt, margin=0.5em}
+]{defstyle}
+
+
+\declaretheorem[style=defstyle]{definition}
+\declaretheorem[style=defstyle, name=Remark, numbered=no]{remark}
+\declaretheorem[style=defstyle, name=Discussion, numbered=no]{discussion}
+%\declaretheorem[numbered=no]{proof}
+\declaretheorem[name=Example, numbered=no]{example}
+
+
+\newcommand{\nicequote}[2]
+{
+    \begin{center}{\Huge \bfseries ``}
+        \begin{minipage}[t]{0.8\textwidth} \itshape
+            #2 
+            \begin{flushright} \vspace*{-1em}
+                 -- #1
+            \end{flushright}
+        \end{minipage} \, {\Huge \bfseries ''} 
+    \end{center}
+}
+
+\newcommand{\location}{\textbf{\scshape Location}}
+\newcommand{\indoors}{{\scshape Indoors}}
+\newcommand{\outdoors}{{\scshape Outdoors}}
+
+
+\newcommand{\motion}{\textbf{\scshape Motion}}
+\newcommand{\stationary}{{\scshape Stationary}}
+\newcommand{\moving}{{\scshape Moving}}
+\newcommand{\bike}{{\scshape Bike}}
+\newcommand{\car}{{\scshape Car}}
+
+
+\newcommand{\conversation}{\textbf{\scshape Conversation}}
+\newcommand{\noise}{{\scshape Noise}}
+\newcommand{\conversationclass}{{\scshape Conversation}}
+
+
+\newcommand{\grouping}{\textbf{\scshape Grouping}}
+\newcommand{\group}{{\scshape Group}}
+\newcommand{\individual}{{\scshape Individual}}
+
+
+
+\newcommand{\situationTable}[5]
+{
+    #1 & #2 \\ 
+}
+
+\pgfplotsset{
+  compat=newest,
+  xlabel near ticks,
+  ylabel near ticks
+}
+
+
+
+

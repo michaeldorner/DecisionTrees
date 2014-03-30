@@ -1,0 +1,74 @@
+\documentclass[
+	12pt,
+	a4paper,
+	%twoside, 
+	pointlessnumbers, % Kein Punkt nach der letzten Ziffer
+	bibtotoc, % Literatur ins Inhaltsverzeichnis
+	halfparskip+,
+	listof=totocnumbered
+	]{scrreprt}
+
+% Packages
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[english]{babel}
+\usepackage{graphicx}
+
+
+\begin{document}
+
+% Titelseite
+\begin{titlepage} 
+\thispagestyle{empty}
+
+\begin{flushright}
+\includegraphics[width=7cm]{titlepage/faulogo.eps}
+\end{flushright}
+\vspace*{1cm}
+\begin{center}
+
+    {\fontsize{50}{50} \textsc{Seminar Paper}}\\[2.5em] % \fontsize{65}{65}
+    
+    
+    %\textsf{\small with the title }
+    
+    \noindent\rule{\textwidth}{0.5pt} \\[0.5em]
+    {\Large \textsf{An Introdution To Decision Trees} } 
+    \noindent\rule{\textwidth}{0.5pt} \\[4em]
+
+    Michael Dorner
+    
+    \vspace*{1cm}
+    
+    \today
+    
+    \vspace*{2cm}
+
+
+    \begin{tabular}{l l}
+        \begin{minipage}{0.5\linewidth} 
+        {\small \textsf{Student ID} } \\[0.1cm] 
+        {\normalsize 2136726} \\[0.5cm] 
+        {\small \textsf{Date} } \\[0.1cm] 
+        {\normalsize \today} \end{minipage} 
+    &
+        \begin{minipage}{0.5\linewidth}
+        {\small \textsf{First Reviser} } \\[0.1cm] 
+        { \normalsize Prof. Dr.-Ing. Uwe Wienkop} \\[0.5cm]
+        {\small \textsf{Second Reviser} } \\[0.1cm] 
+        { \normalsize Prof. Dr.-Ing. Timo Götzelmann} \end{minipage}
+    \end{tabular}
+
+\end{center}
+
+\newpage
+\thispagestyle{empty}
+$ $
+
+\end{titlepage}
+
+\author{Michael Dorner}
+
+
+
+\end{document}

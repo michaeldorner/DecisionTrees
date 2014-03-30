@@ -1,0 +1,50 @@
+
+\newpage
+
+
+\section{Summary \& Conclusion}
+
+\subsection{Applications}
+
+Decision trees have a wide field of applications. In this subsection some examples of the applications are listed.
+
+\begin{description}
+    \item[Astronomy] \cite{salzberg1995decision} applied decision tree learning to the task of distinguishing between stars and cosmic rays in images collected by the Hubble Space Telescope.
+    %\item[Library] In [26], decision trees are developed that predict the future use of books in a library.
+    \item[Chemistry] The relationship between the research on octane (ROC) number and the molecular substructures were explored n the paper \cite{blurock1995automatic}.
+    \item[Medicine] In \cite{vlahou2003diagnosis} decision trees are applied for the diagnosis of the ovarian cancer.     
+    \item[Economy] The results of the research project on decision trees used in stock trading was published in \cite{wu2006effective}.
+    \item[Geography] \cite{lagacherie1997addressing} used classification trees to predict and correct errors in topographical and geological data.
+\end{description}
+
+
+
+\subsection{Programming Example}
+
+In the programming example a decision tree induction algorithm was implemented in the programming language Python. The focus during the development was on readability and understanding, less on performance and software architecture. 
+
+Two splitting criteria are implemented: Information and Gini gain (ID3 and CART). Also a basic pruning algorithm can be used, which uses a threshold for the pruning decision (see subsection \ref{stoppingcriterionimpl} for the idea of stopping criteria). The decision tree itself is implemented as binary tree and does not support regression analysis.
+
+Two examples are enclosed: Tuberculoses/pneumonia and fish iris classification. Both are from real world, while the first example consists of only a handful instances due to the fact that this example was calculated completely by hand in the presentation. The second example origins from Matlab demo files. 
+
+The code is well commented and has a demo application for each example. 
+
+
+
+\subsection{Summary}
+
+In the scope of this paper, a small introduction to decision trees was given. The introductory example showed the working principle and advantages of decision trees. A overview of machine learning approaches helped to see the bigger picture.  
+
+The theory part started with some necessary definitions which are used in the following parts. The basic top-down induction of decision trees algorithm was introduced and the options for improving this framework were described mathematically.
+
+Three decision tree algorithms were selected and presented to the reader: CHAID, ID3, CART, and C4.5. All facts from the previous sections were compared and traded off one against the others. Due to the limited scope of this seminar paper some parts were not considered in detailed, but a small outlook in that interesting topics are given.  
+
+The last part shows some examples where decision trees find their application in the real world and how many-faceted this field is. The programming example with a small code documentation completes the picture of decision trees. 
+
+
+
+
+
+
+
+

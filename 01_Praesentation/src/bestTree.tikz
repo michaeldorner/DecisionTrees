@@ -1,0 +1,232 @@
+% This file was created by matlab2tikz v0.4.4 running on MATLAB 7.14.
+% Copyright (c) 2008--2013, Nico Schlömer <nico.schloemer@gmail.com>
+% All rights reserved.
+% 
+% The latest updates can be retrieved from
+%   http://www.mathworks.com/matlabcentral/fileexchange/22022-matlab2tikz
+% where you can also make suggestions and rate matlab2tikz.
+% 
+\begin{tikzpicture}
+
+\begin{axis}[%
+width=\figurewidth,
+height=\figureheight,
+scale only axis,
+xmin=0,
+xmax=1,
+ymin=0.1,
+ymax=0.9,
+hide axis
+]
+\addplot [
+color=ohmred,
+only marks,
+mark=o,
+mark options={solid},
+forget plot
+]
+table[row sep=crcr]{
+0.5 0.9\\
+0.0833333333333333 0.1\\
+0.541666666666667 0.8\\
+0.458333333333333 0.7\\
+0.875 0.2\\
+0.416666666666667 0.6\\
+0.75 0.1\\
+0.833333333333333 0.1\\
+0.916666666666667 0.1\\
+0.333333333333333 0.5\\
+0.625 0.2\\
+0.291666666666667 0.4\\
+0.5 0.1\\
+0.583333333333333 0.1\\
+0.666666666666667 0.1\\
+0.166666666666667 0.1\\
+0.333333333333333 0.3\\
+0.291666666666667 0.2\\
+0.416666666666667 0.1\\
+0.25 0.1\\
+0.333333333333333 0.1\\
+};
+\addplot [
+color=ohmred,
+solid,
+forget plot
+]
+table[row sep=crcr]{
+0.0833333333333333 0.1\\
+0.5 0.9\\
+};
+\addplot [
+color=ohmred,
+solid,
+forget plot
+]
+table[row sep=crcr]{
+0.541666666666667 0.8\\
+0.5 0.9\\
+};
+\addplot [
+color=ohmred,
+solid,
+forget plot
+]
+table[row sep=crcr]{
+0.458333333333333 0.7\\
+0.541666666666667 0.8\\
+};
+\addplot [
+color=ohmred,
+solid,
+forget plot
+]
+table[row sep=crcr]{
+0.875 0.2\\
+0.541666666666667 0.8\\
+};
+\addplot [
+color=ohmred,
+solid,
+forget plot
+]
+table[row sep=crcr]{
+0.416666666666667 0.6\\
+0.458333333333333 0.7\\
+};
+\addplot [
+color=ohmred,
+solid,
+forget plot
+]
+table[row sep=crcr]{
+0.75 0.1\\
+0.458333333333333 0.7\\
+};
+\addplot [
+color=ohmred,
+solid,
+forget plot
+]
+table[row sep=crcr]{
+0.833333333333333 0.1\\
+0.875 0.2\\
+};
+\addplot [
+color=ohmred,
+solid,
+forget plot
+]
+table[row sep=crcr]{
+0.916666666666667 0.1\\
+0.875 0.2\\
+};
+\addplot [
+color=ohmred,
+solid,
+forget plot
+]
+table[row sep=crcr]{
+0.333333333333333 0.5\\
+0.416666666666667 0.6\\
+};
+\addplot [
+color=ohmred,
+solid,
+forget plot
+]
+table[row sep=crcr]{
+0.625 0.2\\
+0.416666666666667 0.6\\
+};
+\addplot [
+color=ohmred,
+solid,
+forget plot
+]
+table[row sep=crcr]{
+0.291666666666667 0.4\\
+0.333333333333333 0.5\\
+};
+\addplot [
+color=ohmred,
+solid,
+forget plot
+]
+table[row sep=crcr]{
+0.5 0.1\\
+0.333333333333333 0.5\\
+};
+\addplot [
+color=ohmred,
+solid,
+forget plot
+]
+table[row sep=crcr]{
+0.583333333333333 0.1\\
+0.625 0.2\\
+};
+\addplot [
+color=ohmred,
+solid,
+forget plot
+]
+table[row sep=crcr]{
+0.666666666666667 0.1\\
+0.625 0.2\\
+};
+\addplot [
+color=ohmred,
+solid,
+forget plot
+]
+table[row sep=crcr]{
+0.166666666666667 0.1\\
+0.291666666666667 0.4\\
+};
+\addplot [
+color=ohmred,
+solid,
+forget plot
+]
+table[row sep=crcr]{
+0.333333333333333 0.3\\
+0.291666666666667 0.4\\
+};
+\addplot [
+color=ohmred,
+solid,
+forget plot
+]
+table[row sep=crcr]{
+0.291666666666667 0.2\\
+0.333333333333333 0.3\\
+};
+\addplot [
+color=ohmred,
+solid,
+forget plot
+]
+table[row sep=crcr]{
+0.416666666666667 0.1\\
+0.333333333333333 0.3\\
+};
+\addplot [
+color=ohmred,
+solid,
+forget plot
+]
+table[row sep=crcr]{
+0.25 0.1\\
+0.291666666666667 0.2\\
+};
+\addplot [
+color=ohmred,
+solid,
+forget plot
+]
+table[row sep=crcr]{
+0.333333333333333 0.1\\
+0.291666666666667 0.2\\
+};
+\end{axis}
+\end{tikzpicture}%
