@@ -1,6 +1,5 @@
-Seminar Artificial Intelligence       <img src="/github/ohm.png" alt="ohm" height="53" align="right">
+Seminar Artificial Intelligence       
 =============
-<p align="center" ><img src="/github/screenshot.png" alt="othello" title="softcomputing"></p>
 
 Title
 --------------------
