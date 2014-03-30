@@ -4,7 +4,7 @@ Decision Trees - An Introduction
 
 Abstract
 --------------------
-This project work emerges in the context of the course *Artificial Intelligence* in the winter semester 2013/2014 at [Friedlich-Alexander-University, Erlangen](http://www.fau.eu). Beside this seminar paper, an introductory presentation was conducted and an implementation for decision tree was developed. The presentation is available only in German.
+This project work emerges in the context of the course *Artificial Intelligence* in the winter semester 2013/2014 at [Friedrich-Alexander-University, Erlangen](http://www.fau.eu). Beside this seminar paper, an introductory presentation was conducted and an implementation for decision tree was developed. The presentation is available only in German.
 
 In the scope of this seminar paper, a small introduction to theory and application of decision trees shall be given.
 
