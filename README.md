@@ -1,8 +1,6 @@
-Decision Trees - An Introduction
+Decision Trees An Introduction
 =============
-
-
-<p align="center" ><img src="https://raw.githubusercontent.com/michaeldorner/DecisionTrees/master/01_Seminar%20Paper/content/decisiontree.png" width="600px" alt="decisiontree" title="decisiontree"></p>
+<p align="center" ><img src="https://raw.githubusercontent.com/michaeldorner/DecisionTrees/master/01_Seminar%20Paper/content/decisiontree.png" width="200px" alt="decisiontree" title="decisiontree"></p>
 
 
 Abstract
