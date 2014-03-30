@@ -1,10 +1,5 @@
-Seminar Artificial Intelligence       
-=============
-
-Title
---------------------
 Decision Trees - An Introduction
-
+=============
 
 Abstract
 --------------------
@@ -50,9 +45,9 @@ Table of Content
 
 
 
-Schnelleinstieg
+Quicklinks
 --------------------
-* [Schriftliche Ausarbeitung als .pdf](https://raw.github.com/michaeldorner/Softcomputing/master/2_Studienarbeit/studienarbeit.pdf)
-* [Präsentation als .pdf](https://github.com/michaeldorner/Softcomputing/blob/master/3_Präsentation/präsentation.pdf)
-* [Python-Quellcode](https://github.com/michaeldorner/Softcomputing/tree/master/1_Code/)
+* [Seminar Paper .pdf](https://raw.githubusercontent.com/michaeldorner/DecisionTrees/master/02_Praesentation/praesentation.pdf)
+* [Presentation .pdf (German)](https://raw.githubusercontent.com/michaeldorner/DecisionTrees/master/02_Praesentation/praesentation.pdf)
+* [Python source code](https://github.com/michaeldorner/DecisionTrees/tree/master/03_Python%20Code)
 
