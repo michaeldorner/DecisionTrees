@@ -4,7 +4,7 @@
 \subsection{What is a decision tree?} \label{whatisadecisiontree}
 An economy student with only a very few programming skills shall develop a simple algorithm for sorting three elements $A, B, C$. He decides to divide this problem in smaller subproblems. First he wonders if $A$ is smaller than $B$. In the second step it is interesting if $B$ is smaller than $C$. If $A<B$ and $B<C$ than $A<B<C$. But if $B$ is not greater than $C$, than a third question is relevant: Is $A<C$? 
 
-His head is spinning. May solving this problem graphically is a better idea. He draws a node for each question and an edge for each answer. All leafs represents the correct order. Figure \ref{fig:sortingtree} shows the resulting graph:
+His head is spinning. Maybe solving this problem graphically is a better idea. He draws a node for each question and an edge for each answer. All leafs represent the correct order. Figure \ref{fig:sortingtree} shows the resulting graph:
 
 \begin{figure}[!h]
 \begin{tikzpicture}[edge from parent/.style={draw,-latex},
@@ -91,7 +91,7 @@ print( sort1(2,0,0) )  # >> [0, 0, 2]
     The Python if-statement syntax and intends implies the tree structure in a vertical form, too.      
 \end{remark}
 
-An another way of formatting if-clauses represents a rule set which are first order logical expressions:  
+Another way of formatting if-clauses represents a rule set which are first order logical expressions:  
     \begin{lstlisting}[style = siemens, language = Python, caption={A Python reimplementation of the decision tree given in listing \ref{lst:sort1} as a set of first order logical rules},label=lst:sort2]
 def sort2(A, B, C):
 	if (A < B) and (B < C) : return [A, B, C]
@@ -114,7 +114,7 @@ This introductory example shows four main things: Decision trees
 \end{enumerate}
 
 \begin{remark}
-    Decision trees are used to model all comparison sorts like mergesort or quicksort. May the reader noticed that the decision tree in figure \ref{fig:sortingtree} represents the insertion sort algorithm \cite[p. 208]{cormen2001introduction}. 
+    Decision trees are used to model all comparison sorts like mergesort or quicksort. The reader may notice that the decision tree in figure \ref{fig:sortingtree} represents the insertion sort algorithm \cite[p. 208]{cormen2001introduction}. 
 \end{remark}
 
 
@@ -219,10 +219,10 @@ After this short introduction a theoretical consideration shall guide to a pract
 
 On the contrary to the presentation during the seminar, this seminar paper expects a basic knowledge about graph theory, complexity, and machine learning. Instead of an introduction to these underlaying topics, a deeper look inside four decision tree algorithm families shall be given: \textsc{CHAID}, \textsc{CART}, \textsc{ID3}, and \textsc{C4.5}.  
 
-The focus of all Python implementation is on classification. This limitation is not owed to the insufficient importance of regression calculating, but a wider look would push boundaries of this seminar paper.   
+The focus of all Python implementation is on classification. This limitation is not owed to the insufficient importance of regression calculating, but a wider look would push the boundaries of this seminar paper.   
 
 \begin{remark}
-    Remark boxes like this one shall help to see the bigger pictures. It contains information which will be not explained detailed, but which are a starting point for further investigations.
+    Remark boxes like this one shall help to see the bigger pictures. It contains information that will not be explained any further, but which are a starting point for further investigations.
 \end{remark}
 
 

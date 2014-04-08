@@ -1,17 +1,17 @@
 
 \section{Theory of Decision Trees}
 
-In this section a (computer) scientific base for the informal introduction of decision trees shall be given. As mentioned in the introduction a basic knowledge in graph theory, machine learning and computer science in general are assumed.
+In this section a (computer) scientific base for the informal introduction of decision trees shall be given. As mentioned in the introduction a basic knowledge in graph theory, machine learning and computer science in general is assumed.
 
 
 \subsection{Definitions}
 
 \begin{definition}
-A \textbf{tree} is directed, connected graph with one root node. Every other node has a single predecessor (\textbf{parent}) and no or more successors (\textbf{children}). Nodes without successors are called \textbf{leaves}. All nodes are connected by \textbf{edges}. The \textbf{depth} of a node is the number of edges on the path to the root. The \textbf{height} of the whole tree is the number of edges on the longest path from the root to any leaf. 
+A \textbf{tree} is a directed, connected graph with one root node. Every other node has a single predecessor (\textbf{parent}) and no or more successors (\textbf{children}). Nodes without successors are called \textbf{leaves}. All nodes are connected by \textbf{edges}. The \textbf{depth} of a node is the number of edges on the path to the root. The \textbf{height} of the whole tree is the number of edges on the longest path from the root to any leaf. 
 \end{definition}
 
 \begin{remark}
-This very rough definition focussed on trees shall not hide the fact that there graph theory is complex and enormous mathematical field. For a deeper look e.g. \cite{cormen2001introduction} is recommended.
+This very rough definition focussed on trees shall not hide the fact that graph theory is complex and enormous mathematical field. For a deeper look e.g. \cite{cormen2001introduction} is recommended.
 \end{remark}
 
 \begin{definition}
@@ -27,13 +27,13 @@ A \textbf{decision tree} is a tree with following equivalents:
 \end{center}
 \end{definition}
 
-As mentioned in subsection \ref{taxonomy}, machine learning are a set of algorithms that extract models representing patterns from data and then evaluate those models. Let us define three relevant terms, which are important for understanding the following algorithms descriptions: instance, attribute, class, and dataset:
+As mentioned in subsection \ref{taxonomy}, machine learning is a set of algorithms that extract models representing patterns from data and then evaluate those models. Let us define three relevant terms, which are important for understanding the following algorithms descriptions: instance, attribute, class, and dataset:
 
 \begin{definition}
     The input of a machine learning algorithm consists of a set of \textbf{instances} (e.g. rows, examples or observations). Each instance is described by a fixed number of \textbf{attributes} (i.e. columns), which are assumed to be either nominal or numeric, and a label which is called \textbf{class} (in case of a classification task). The set of all instances is called \textbf{dataset}.
 \end{definition}
 
-Following this definition we get a table containing the dataset: Each decision become an attribute (all binary relations), all leaves are classes, while each row represents an instance of the dataset (see table \ref{tab:decisiontable}).
+Following this definition we get a table containing the dataset: Each decision becomes an attribute (all binary relations), all leaves are classes, while each row represents an instance of the dataset (see table \ref{tab:decisiontable}).
 
 \begin{table}[!h] \centering
 \begin{tabular}{|l| l l l |l|} \hline
@@ -52,9 +52,9 @@ Following this definition we get a table containing the dataset: Each decision b
 \label{tab:decisiontable}
 \end{table}
 
-Normally, the transformation is vice versa: the data are collected in table form (e.g. databases) and a decision tree has to be generated. 
+Normally, the transformation is vice versa: the data is collected in table form (e.g. databases) and a decision tree has to be generated. 
 
-The reason why there are now three eight instead of six classes is simple: it does not matter for instances 1, 2 and 3, 4, if $A<B$ or not; the result is the same class. This effect of removing irrelevant branches of a tree is called pruning and is also part of this paper (see \ref{treepruning}). 
+The reason why there are now eight instead of six classes is simple: it does not matter for instances 1, 2 and 3, 4, if $A<B$ or not; the result is the same class. This effect of removing irrelevant branches of a tree is called pruning and is also part of this paper (see \ref{treepruning}). 
 
 
 \newpage
@@ -154,7 +154,7 @@ child[child anchor=north] {
 \end{figure}
 
 
-This framework gives three position to adopt the framework: the splitting and the stopping criterion, as well as while the tree is going to be pruned. The following parts shall give a sneak overview of these positions. 
+This framework gives three positions to adjust the framework: the splitting and the stopping criterion, as well as the tree is going to be pruned. The following parts shall give a quick overview of these positions. 
 
 \newpage
 
@@ -168,7 +168,7 @@ All introduced criteria are based on impurity measure. This defines how well cla
 
 Of course, it is not possible to list all criteria and ideas for splitting in the scope of this short paper. The selected criteria are needed for the presented algorithms in section \ref{selectedalgorithms}. 
 
-Comparison of splitting criteria is a frequently visited research topic (e.g. \cite{breiman1996technical}, \cite{buntine1992further}, \cite{mingers1989empirical}, \cite{drummond2000exploiting}, \cite{shih1999families}). Although, there is no extraordinary huge difference, each splitting criteria is superior in some cases and inferior in others; a general, scientifically sound statement which one is ``better'' is not possible. 
+Comparison of splitting criteria is a frequently visited research topic (e.g. \cite{breiman1996technical}, \cite{buntine1992further}, \cite{mingers1989empirical}, \cite{drummond2000exploiting}, \cite{shih1999families}). Although, there is no extraordinary difference, each splitting criteria is superior in some cases and inferior in others; a general, scientifically sound statement which one is ``better'' is not possible. 
 
 For the different node splitting criteria we introduce some notation used throughout this section.
 
@@ -210,7 +210,7 @@ while the first term is the entropy and the second term the weighted entropy of 
 \end{remark}
 
 
-One of the problems that arises it that the information gain criterion as defined in equation \ref{entropy} favors large number of partition $P$. So the an improvement was suggested by \cite{quinlan1993c4}, which is now used in the C4.5: instead of the information gain $G(a_j) / g$ is used, where
+One of the problems that arises is that the information gain criterion as defined in equation \ref{entropy} favors large number of partition $P$. So the an improvement was suggested by \cite{quinlan1993c4}, which is now used in the C4.5: instead of the information gain $G(a_j) / g$ is used, where
 
 \begin{equation}
     g = \sum_{p=1}^P \frac{N^{(p)}}{N} \log_2 \frac{N^{(p)}}{N} \label{gainratio}
@@ -236,7 +236,7 @@ One of the problems that arises it that the information gain criterion as define
 %    \end{align}
 \end{definition}
 
-The goal is to find a node which is the most ``pure'' one, i.e. have instances of a single class. Similar to the decrease in entropy and gain information used in the information gain based criterion, the impurity as given in \ref{} is used. The chosen attribute is one which have the largest decrease in impurity.
+The goal is to find a node which is the most ``pure'' one, i.e. has instances of a single class. Similar to the decrease in entropy and gain information used in the information gain based criterion, the impurity as given in \ref{} is used. The chosen attribute is one that has the largest decrease in impurity.
 
 
 \paragraph{Twoing Criterion}
@@ -249,7 +249,7 @@ The binary twoing criterion maximizes the function
     \frac{P(t_L) \cdot P(t_R)}{4} \cdot \left( \sum_{c \in a_i} \left| P(c|t_L) - P(c|t_R) \right| \right) ^2
 \end{align}
 
-for a node $t$, where $P(t_L)$ and $P(t_R)$ are the probability of going left or right, respectively, and $P(c|t_L)$ and $P(c|t_R)$ are the proportions of data points in $t_L$ and $t_R$ that belong to class $c$.
+for a node $t$, where $P(t_L)$ and $P(t_R)$ are the probability of going left or right, respectively, and $P(c|t_L)$ and $P(c|t_R)$ are the proportions of data points in $t_L$ and $t_R$ which belong to class $c$.
 
 \end{definition} 
 
@@ -318,7 +318,7 @@ The growing phase continues until a stopping criterion is triggered. The followi
 
 \subsubsection{Tree Pruning}\label{treepruning}
 
-Using a tight stopping criteria tend to create small and underfitted decision trees. On the other hand, using  loose stopping criteria tend to generate large decision trees that are overfitted to the training set. 
+Using a tight stopping criteria tends to create small and underfitted decision trees. On the other hand, using  loose stopping criteria tends to generate large decision trees that are overfitted to the training set. 
 
 To avoid both extremes, the idea of pruning was developed: A loose stopping criterion is used and after the growing phase, the overfitted tree is cut back into a smaller tree by removing sub-branches that are not contributing to the generalization accuracy. 
 
@@ -388,7 +388,7 @@ where $\varepsilon(T, S)$ denotes the misclassification rate of the tree $T$ on 
 
 
 \begin{remark}
-    Cost-complexity pruning and reduced error pruning tend to over-pruning, while error-based pruning tend to under-pruning \cite[p.68]{rokach2008data}.
+    Cost-complexity pruning and reduced error pruning tends to over-pruning, while error-based pruning tend to under-pruning \cite[p.68]{rokach2008data}.
 \end{remark}
 
 
@@ -432,7 +432,7 @@ Before we immerse in the underlying theory, a small historical background of all
 
 In 1964, the statisticians John A. Sonquist and James N. Morgan introduced a first version of tree learning algorithm called Automatic Interaction Detection (AID) \cite{morgan1963problems}. 
 
-Gordon V. Kass proposed an modification to AID in his paper from 1979 \cite{kass1980exploratory} called \textit{Chi-squared Automatic Interaction Detector} (CHAID). 
+Gordon V. Kass proposed a modification to AID in his paper from 1979 \cite{kass1980exploratory} called \textit{Chi-squared Automatic Interaction Detector} (CHAID). 
 
 The basic improvement was splitting criterion: instead of the variance the $\chi^2$-test is used. Therefore, the partitions need not be a bisection.
 
@@ -460,7 +460,7 @@ After the growing phase an error-based pruning is performed.
 
 
 \begin{remark}
-    There is a commercial successor of C4.5, called C5.0 \cite{Kohavi99decisiontree}, but it has not influenced the decision tree learning in the way Quinlan's two other algorithms: no scientific papers about the C5.0 itself are findable. 
+    There is a commercial successor of C4.5, called C5.0 \cite{Kohavi99decisiontree}, but it has not influenced the decision tree learning in the way Quinlan's two other algorithms did: no scientific papers about the C5.0 itself are findable. 
 \end{remark}
 
 
@@ -470,17 +470,17 @@ After the growing phase an error-based pruning is performed.
 
 \subsection{Discussion}
 
-In this part, the usage of decision tree shall be discussed. The pro and cons statements are very general and thus not very precise. There are several approaches to avoid or at least minimize the disadvantages and maximize the benefits and advantages, as mentioned in the previous parts.
+In this part, the usage of decision trees shall be discussed. The pro and con statements are very general and thus not very precise. There are several approaches to avoid or at least minimize the disadvantages and maximize the benefits and advantages, as mentioned in the previous parts.
 
 
 \subsubsection{Advantages}
 
 Also a lot of advantages can be recognized \cite[p. 73ff.]{rokach2008data}. Decision trees
 \begin{itemize}
-    \item are self-explanatory and can converted into a set of rules, which is easy and fast to interpret, understand, and implement: A path from the root to a leaf is the explanation for the resulting classification which is given by the leaf (terminal node). 
+    \item are self-explanatory and can be converted into a set of rules, which is easy and fast to interpret, understand, and implement: A path from the root to a leaf is the explanation for the resulting classification which is given by the leaf (terminal node). 
     \item can handle both nominal and numeric input values.
     \item are capable of handling data sets with missing values.
-    \item are nonparametric method, which means that they have no assumptions about the space distribution and the classifier structure. 
+    \item are a nonparametric method, which means that they have no assumptions about the space distribution and the classifier structure. 
 \end{itemize}
 
 
@@ -489,7 +489,7 @@ On the other hand, decision trees have disadvantages such as
 \begin{itemize}
     \item an over-sensitivity to the training set, to irrelevant attributes, and to noise.
     \item a requirement that the target attribute consists only of discrete values (in case e.g. ID3 or C4.5).
-    \item a tending to perform well if a few highly relevant attributes exists, because decision trees use the divide and conquer method; but less so if many complex interactions are present. 
+    \item a tending to perform well if a few highly relevant attributes exist, because decision trees use the divide and conquer method; but less so if many complex interactions are present. 
 \end{itemize}
 
 
@@ -499,13 +499,13 @@ On the other hand, decision trees have disadvantages such as
 
 \subsection{Outlook}
 
-This subsection is about what was not part of the considerations of this seminar paper, but in the humble opinion of the author important or interesting for the working with decision trees.
+This subsection is about what was not part of the considerations of this seminar paper, but, in the humble opinion of the author, is important or interesting for working with decision trees.
 
 \subsubsection{Complexity \& Performance}
 
 Like for all computer algorithms the time and space complexity is relevant. \cite{buhrman2002complexity} gives a broad overview of the complexity of decision trees in general. 
 
-In the following some assumptions contain the wide field of complexity. We suppose that we have $n$ training instances, $m$ attributes, $O(n)$ nodes (up to one leaf per example), and the tree depth of $O(\log n)$. So the complexities are given by table \ref{tab:complexity}. % todo : fix it
+In the following some assumptions contain the wide field of complexity. We suppose that we have $n$ training instances, $m$ attributes, $O(n)$ nodes (up to one leaf per example), and the tree depth of $O(\log n)$. So the complexities are given by table \ref{tab:complexity}. 
 
 \begin{table}[!h] \centering
 \begin{tabular}{|p{6cm} | l|} \hline
@@ -523,7 +523,7 @@ Total Costs & $O(m \cdot n \log n ) + O\left(n \cdot (n \log n)^2 \right)$ \\ \h
 But \cite{su2006fast} showed that it is possible with a novel algorithm to achieve a time complexity of $O(m \cdot n)$.  
 
 
-Due to the fact that there are many improvements for each algorithm, a general statement is not feasible. But several research approaches compare the performances of decision tree algorithms with each other (e.g. \cite{lavanya2011performance}, \cite{banfield2007comparison}, \cite{safavian1991survey}) and decision tree with other classification approaches (e.g. \cite{huang2003comparing}, \cite{curram1994neural}). 
+Due to the fact that there are many improvements for each algorithm, a general statement is not feasible. But several research approaches compare the performances of decision tree algorithms with each other (e.g. \cite{lavanya2011performance}, \cite{banfield2007comparison}, \cite{safavian1991survey}) and decision trees with other classification approaches (e.g. \cite{huang2003comparing}, \cite{curram1994neural}). 
 
 
 
@@ -531,7 +531,7 @@ Due to the fact that there are many improvements for each algorithm, a general s
 
 It is common, that classification problems have missing attributes during training, during classification, or both. Consider first training a tree classifier despite the fact that some training patterns are missing attributes. 
 
-There are several approaches to handle missing values. Numerical values can be initialized by an meaningful value (minimum, maximum, average, $-1$, etc.). For nonnumerical attributes it might be useful to choose the commonest attribute value. 
+There are several approaches to handle missing values. Numerical values can be initialized by a meaningful value (minimum, maximum, average, $-1$, etc.). For nonnumerical attributes it might be useful to choose the commonest attribute value. 
 
 For a more detailled description of the approaches to handle missing values, e.g. \cite{zhang2005missing} and \cite[p. 59 ff.]{rokach2008data} are recommended.
 
