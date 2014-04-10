@@ -17,7 +17,6 @@ def divideSet(rows, column, value):
 		splittingFunction = lambda row : row[column] >= value
 	else: # for strings 
 		splittingFunction = lambda row : row[column] == value
-
 	list1 = [row for row in rows if splittingFunction(row)]
 	list2 = [row for row in rows if not splittingFunction(row)]
 	return (list1, list2)
@@ -47,14 +46,14 @@ def entropy(rows):
 def gini(rows):
 	total = len(rows)
 	counts = uniqueCounts(rows)
-	imp = 0
+	imp = 0.0
 
 	for k1 in counts:
 		p1 = float(counts[k1])/total  
 		for k2 in counts:
 			if k1 == k2: continue
 			p2 = float(counts[k2])/total
-		imp += p1*p2
+			imp += p1*p2
 	return imp
 
 
@@ -153,7 +152,7 @@ def classify(observations, tree, dataMissing=False):
 				fcount = sum(fr.values())
 				tw = float(tcount)/(tcount + fcount)
 				fw = float(fcount)/(tcount + fcount)
-				result = collections.defaultdict(int) # Problem description:http://blog.ludovf.net/python-collections-defaultdict/
+				result = collections.defaultdict(int) # Problem description: http://blog.ludovf.net/python-collections-defaultdict/
 				for k, v in tr.items(): result[k] += v*tw
 				for k, v in fr.items(): result[k] += v*fw
 				return dict(result)
@@ -223,6 +222,7 @@ if __name__ == '__main__':
 		# the smaller examples
 		trainingData = loadCSV('tbc.csv') # sorry for not translating the TBC and pneumonia symptoms
 		decisionTree = growDecisionTreeFrom(trainingData)
+		#decisionTree = growDecisionTreeFrom(trainingData, evaluationFunction=gini) # with gini
 		plot(decisionTree) 
 
 		print(classify(['ohne', 'leicht', 'Streifen', 'normal', 'normal'], decisionTree, dataMissing=False)) 
