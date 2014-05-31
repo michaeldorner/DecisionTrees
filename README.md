@@ -48,7 +48,7 @@ Table of Content
 
 Quicklinks
 --------------------
-* [Seminar Paper .pdf](https://raw.githubusercontent.com/michaeldorner/DecisionTrees/master/02_Praesentation/praesentation.pdf)
+* [Seminar Paper .pdf](https://raw.githubusercontent.com/michaeldorner/DecisionTrees/master/01_Seminar%20Paper/seminarpaper.pdf)
 * [Presentation .pdf (German)](https://raw.githubusercontent.com/michaeldorner/DecisionTrees/master/02_Praesentation/praesentation.pdf)
 * [Python source code](https://github.com/michaeldorner/DecisionTrees/tree/master/03_Python%20Code)
 
