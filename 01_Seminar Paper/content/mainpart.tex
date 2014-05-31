@@ -27,7 +27,7 @@ A \textbf{decision tree} is a tree with following equivalents:
 \end{center}
 \end{definition}
 
-As mentioned in subsection \ref{taxonomy}, machine learning is a set of algorithms that extract models representing patterns from data and then evaluate those models. Let us define three relevant terms, which are important for understanding the following algorithms descriptions: instance, attribute, class, and dataset:
+As mentioned in subsection \ref{taxonomy}, machine learning is a set of algorithms that extract models representing patterns from data and then evaluate those models. Let us define four relevant terms, which are important for understanding the following algorithms descriptions: instance, attribute, class, and dataset:
 
 \begin{definition}
     The input of a machine learning algorithm consists of a set of \textbf{instances} (e.g. rows, examples or observations). Each instance is described by a fixed number of \textbf{attributes} (i.e. columns), which are assumed to be either nominal or numeric, and a label which is called \textbf{class} (in case of a classification task). The set of all instances is called \textbf{dataset}.
@@ -54,7 +54,7 @@ Following this definition we get a table containing the dataset: Each decision b
 
 Normally, the transformation is vice versa: the data is collected in table form (e.g. databases) and a decision tree has to be generated. 
 
-The reason why there are now eight instead of six classes is simple: it does not matter for instances 1, 2 and 3, 4, if $A<B$ or not; the result is the same class. This effect of removing irrelevant branches of a tree is called pruning and is also part of this paper (see \ref{treepruning}). 
+The reason why there are now eight instead of six classes is simple: it does not matter for instances 1, 2 and 7, 8, if $A<B$ or not; the result is the same class. This effect of removing irrelevant branches of a tree is called pruning and is also part of this paper (see \ref{treepruning}). 
 
 
 \newpage
@@ -100,7 +100,7 @@ Create a new tree $T$ with a single root node.\\
 \SetKwFunction{pruned}{pruned}
 \Input{Training set $X$, tree to be pruned $T$, target feature $y$}\Output{Decision tree}\BlankLine
 \Repeat{$t = \emptyset$}{
-     %  $t = \max{\evaluatingCriteria{$\forall t_i \in T$}}$      Select a node $n$ in $T$ such that pruning this node $n$ maximally improves some evaluation criteria. \\
+      Select a node $n$ in $T$ such that pruning this node $n$ maximally improves some evaluation criterions. \\
     \If{$n \neq \emptyset$}{
         $T = $ \pruned{$T, n$}
     }}
@@ -160,17 +160,17 @@ This framework gives three positions to adjust the framework: the splitting and 
 
 \subsubsection{Splitting Criterion}
 
-All introduced criteria are based on impurity measure. This defines how well classes are separated. 
+All introduced criterions are based on impurity measure. This defines how well classes are separated. 
 
 \begin{remark}
- For further information about impurity based criteria \cite[p. 53 ff.]{rokach2008data} is highly recommended.
+ For further information about impurity based criterions \cite[p. 53 ff.]{rokach2008data} is highly recommended.
 \end{remark}
 
-Of course, it is not possible to list all criteria and ideas for splitting in the scope of this short paper. The selected criteria are needed for the presented algorithms in section \ref{selectedalgorithms}. 
+Of course, it is not possible to list all criterions and ideas for splitting in the scope of this short paper. The selected criterions are needed for the presented algorithms in section \ref{selectedalgorithms}. 
 
-Comparison of splitting criteria is a frequently visited research topic (e.g. \cite{breiman1996technical}, \cite{buntine1992further}, \cite{mingers1989empirical}, \cite{drummond2000exploiting}, \cite{shih1999families}). Although, there is no extraordinary difference, each splitting criteria is superior in some cases and inferior in others; a general, scientifically sound statement which one is ``better'' is not possible. 
+Comparison of splitting criterions is a frequently visited research topic (e.g. \cite{breiman1996technical}, \cite{buntine1992further}, \cite{mingers1989empirical}, \cite{drummond2000exploiting}, \cite{shih1999families}). Although, there is no extraordinary difference, each splitting criterion is superior in some cases and inferior in others; a general, scientifically sound statement which one is ``better'' is not possible. 
 
-For the different node splitting criteria we introduce some notation used throughout this section.
+For the different node splitting criterions we introduce some notation used throughout this section.
 
 We assume there are total number of $C$ classes denoted by $\Omega = {\omega_1, \omega_2, \dots, \omega_C}$. Let there be $N$ training examples represented by
 \begin{equation}
@@ -275,7 +275,7 @@ child {
 \label{fig:twoingcriterion}
 \end{figure}
 
-When the target attribute is binary the Gini and twoing criterion are equivalent \cite{shih1999families}. The towing rule is more appropriate for data, which has a large number of different classes. For multi-class problems the twoing criteria prefers attributes with evenly divided splits \cite[p. 57]{rokach2008data}.
+When the target attribute is binary the Gini and twoing criterion are equivalent \cite{shih1999families}. The towing rule is more appropriate for data, which has a large number of different classes. For multi-class problems the twoing criterion prefers attributes with evenly divided splits \cite[p. 57]{rokach2008data}.
 
 
 \paragraph{Chi-Squared Statistic Criterion}
@@ -287,7 +287,7 @@ The formula for computing the $\chi^2$ value is
 \begin{equation}
     \chi^2 = \sum_{k=1}^{C}\sum_{p=1}^{P} \frac{\left(\left| N_{\omega_k}^{(p)} \right| - \left| \tilde N_{\omega_k}^{(p)} \right| \right) ^2 }{ \left| \tilde N_{\omega_k}^{(p)} \right| }
 \end{equation}
-where $\tilde N_k^{(p)}$ is the expected frequency of the samples $N$ in $k$.
+where $\tilde N_k^{(p)} = \cfrac{N^{(p)}}{N} \cdot N_{\omega_k}$ is the a priori frequency of the samples $N$ in $k$.
 \end{definition}
 
 A larger value of $\chi^2$ indicates that the split is more homogeneous, i.e. has a greater frequency of instances from a certain class. The attribute is chosen by the largest value of $\chi^2$.
@@ -306,7 +306,7 @@ The growing phase continues until a stopping criterion is triggered. The followi
     \item The maximum tree depth has been reached.
     \item The number of cases in the terminal node is less than the minimumnumber of cases for parent nodes.
     \item If the node were split, the number of cases in one or more child nodeswould be less than the minimum number of cases for child nodes.
-    \item The best splitting criteria is not greater than a certain threshold.
+    \item The best splitting criterion is not greater than a certain threshold.
 \end{itemize}
 
 
@@ -318,7 +318,7 @@ The growing phase continues until a stopping criterion is triggered. The followi
 
 \subsubsection{Tree Pruning}\label{treepruning}
 
-Using a tight stopping criteria tends to create small and underfitted decision trees. On the other hand, using  loose stopping criteria tends to generate large decision trees that are overfitted to the training set. 
+Using a tight stopping criterion tends to create small and underfitted decision trees. On the other hand, using  loose stopping criterion tends to generate large decision trees that are overfitted to the training set. 
 
 To avoid both extremes, the idea of pruning was developed: A loose stopping criterion is used and after the growing phase, the overfitted tree is cut back into a smaller tree by removing sub-branches that are not contributing to the generalization accuracy. 
 
@@ -340,7 +340,7 @@ Reduced error pruning is a basic pruning approach introduced by Ross Quinlan in 
 Subdivide $X$ into a training set $X_T$ and validation set $X_V$.\\
 Build a tree $T = $ \treeGrowing{$X_T, A, y$}.\\
 Pass all of the training examples $X_V$ through the tree $T$ and estimate the error rate of each node $n$ using $X_V$.\\
-Convert a node to a leaf if it would have lower estimated error than the sum of the errors of its children.\\
+Convert a node to a leaf if it would have lower estimated error then the sum of the errors of its children.\\
 \Return{T}
 \caption{Reduced Error Pruning}
 \end{algorithm}
@@ -436,7 +436,7 @@ Gordon V. Kass proposed a modification to AID in his paper from 1979 \cite{kass1
 
 The basic improvement was splitting criterion: instead of the variance the $\chi^2$-test is used. Therefore, the partitions need not be a bisection.
 
-CHAID handles missing values by treating them as a separate valid category and does not perform any pruning. 
+CHAID handles missing values by treating them as a separate valid category and does not perform any pruning. A short introduction to handling missing attribute values will be given in subsection \ref{missingattributes}.
 
 
 \subsubsection{Iterative Dichotomiser 3 (ID3)} 
@@ -446,14 +446,14 @@ The ID3 algorithm was developed by Ross Quinlan in 1986. It uses the information
 
 \subsubsection{Classification And Regression Tree (CART)} 
 
-Leo Breiman published his idea of CART in 1984 \cite{quinlandecisiontreediscovery}. As the name suggests CART supports also regression trees. This book provides a strong statistic foundation and revived the idea of CLS \cite[p. 435]{duda2012pattern}.
+Leo Breiman published his idea of CART in 1984 \cite[p. 18]{rokach2008data}. As the name suggests CART supports also regression trees. This book provides a strong statistic foundation and revived the idea of CLS \cite[p. 435]{duda2012pattern}.
 
-Two splitting criteria can be chosen: the twoing or Gini criterion \cite[p. 1]{shih1999families}. The obtained tree is pruned by cost-complexity pruning.  
+Two splitting criterions can be chosen: the twoing or Gini criterion \cite[p. 1]{shih1999families}. The obtained tree is pruned by cost-complexity pruning.  
 
 
 \subsubsection{C4.5}
 
-C4.5 is the updated version of ID3 by the same author \cite{Kohavi99decisiontree}. It uses also the information gain, but extends this by the option of handling missing value and continuos values. This new splitting criterion is called gain ratio (see formula \ref{gainratio}).
+C4.5 is the updated version of ID3 by the same author \cite{Kohavi99decisiontree}. It uses also the information gain, but extends this by the option of handling missing value and continuous values. This new splitting criterion is called gain ratio (see formula \ref{gainratio}).
 
 After the growing phase an error-based pruning is performed.
 
@@ -514,7 +514,7 @@ Subtree replacement & $O(n)$ \\
 Subtree raising & $O\left(n \cdot (n \log n)^2 \right)$ \\ 
 \vspace*{-2em} \begin{itemize}\item \small{Every instance may have to be redistributed at every nodebetween its leaf and the root} \vspace*{-1em} \end{itemize} & $ \qquad O\left(n \log n \right)$ \\
 \vspace*{-2em} \begin{itemize}\item \small{Cost for redistribution (on average)} \vspace*{-1em} \end{itemize} & $ \qquad O\left( \log n \right)$ \\ \hline \hline
-Total Costs & $O(m \cdot n \log n ) + O\left(n \cdot (n \log n)^2 \right)$ \\ \hline
+Total Cost & $O(m \cdot n \log n ) + O\left(n \cdot (n \log n)^2 \right)$ \\ \hline
 \end{tabular}
 \caption{Complexity overview of a assumed decision tree}
 \label{tab:complexity}
@@ -527,7 +527,7 @@ Due to the fact that there are many improvements for each algorithm, a general s
 
 
 
-\subsubsection{Missing Attributes}
+\subsubsection{Missing Attributes}\label{missingattributes}
 
 It is common, that classification problems have missing attributes during training, during classification, or both. Consider first training a tree classifier despite the fact that some training patterns are missing attributes. 
 

@@ -2,7 +2,7 @@
 
 
 \subsection{What is a decision tree?} \label{whatisadecisiontree}
-An economy student with only a very few programming skills shall develop a simple algorithm for sorting three elements $A, B, C$. He decides to divide this problem in smaller subproblems. First he wonders if $A$ is smaller than $B$. In the second step it is interesting if $B$ is smaller than $C$. If $A<B$ and $B<C$ than $A<B<C$. But if $B$ is not greater than $C$, than a third question is relevant: Is $A<C$? 
+A business student with only a very few programming skills shall develop a simple algorithm for sorting three elements $A, B, C$. He decides to divide this problem in smaller subproblems. First he wonders if $A$ is smaller then $B$. In the second step it is interesting if $B$ is smaller then $C$. If $A<B$ and $B<C$ then $A<B<C$. But if $B$ is not greater then $C$, then a third question is relevant: Is $A<C$? 
 
 His head is spinning. Maybe solving this problem graphically is a better idea. He draws a node for each question and an edge for each answer. All leafs represent the correct order. Figure \ref{fig:sortingtree} shows the resulting graph:
 
@@ -88,7 +88,7 @@ print( sort1(2,0,0) )  # >> [0, 0, 2]
 \end{lstlisting}
 
 \begin{remark}
-    The Python if-statement syntax and intends implies the tree structure in a vertical form, too.      
+    The Python if-statement syntax implies the tree structure in a vertical form, too.      
 \end{remark}
 
 Another way of formatting if-clauses represents a rule set which are first order logical expressions:  
@@ -110,7 +110,7 @@ This introductory example shows four main things: Decision trees
     \item work very well for classification and data mining.
     \item are intuitive and self-explanatory.
     \item They are easy to implement.
-    \item can be even used by economists.
+    \item can be even used by business students.
 \end{enumerate}
 
 \begin{remark}
@@ -177,12 +177,12 @@ child {
 }
 ;
 \end{tikzpicture}
-\caption[The context of decision trees in machine learning with in this paper visited topics.]{The context of decision trees in machine learning with \textcolor{siemensblue}{in this paper visited topics}.}
+\caption[The context of decision trees in machine learning with topics visited in this paper.]{The context of decision trees in machine learning with \textcolor{siemensblue}{topics visited in this paper}.}
 \label{fig:machinelearningcontext}
 \end{figure}
 
 \begin{remark}
-The context shown in figure \ref{fig:machinelearningcontext} is not intended for being complete, e.g. there is mixture of unsupervised and supervised learning, so called semi-supervised learning. Also not every decision tree can handle continuos values for regression analysis as we will see later.
+The context shown in figure \ref{fig:machinelearningcontext} is not intended for being complete, e.g. there is mixture of unsupervised and supervised learning, so called semi-supervised learning. Also not every decision tree can handle continuous values for regression analysis as we will see later.
 \end{remark}
 
 Decision trees have a sibling, called regression trees. They have a common parent: prediction trees \cite{goldman2010self}. The basic idea is to use trees to model functions though each end point will result in the same predicted value, a constant for that point. Thus a regression tree is like a classification tree except that the end point will be a predicted function value rather than a predicted classification. 
@@ -217,9 +217,9 @@ In the scope of this seminar paper, a small introduction to theory and applicati
 
 After this short introduction a theoretical consideration shall guide to a practical part, which shall clarify the theoretical part by examples. The last part shall summarize and compare the introduced algorithm and shall give a small outlook to not tackled research fields of decision trees.
 
-On the contrary to the presentation during the seminar, this seminar paper expects a basic knowledge about graph theory, complexity, and machine learning. Instead of an introduction to these underlaying topics, a deeper look inside four decision tree algorithm families shall be given: \textsc{CHAID}, \textsc{CART}, \textsc{ID3}, and \textsc{C4.5}.  
+On the contrary to the presentation during the seminar, this seminar paper expects a basic knowledge about graph theory, complexity, and machine learning from the reader. Instead of an introduction to these underlying topics, a deeper look inside four decision tree algorithm families shall be given: \textsc{CHAID}, \textsc{CART}, \textsc{ID3}, and \textsc{C4.5}.  
 
-The focus of all Python implementation is on classification. This limitation is not owed to the insufficient importance of regression calculating, but a wider look would push the boundaries of this seminar paper.   
+The focus of the introduced Python implementation is on classification. This limitation is not owed to the insufficient importance of regression calculating, but a wider look would push the boundaries of this seminar paper.   
 
 \begin{remark}
     Remark boxes like this one shall help to see the bigger pictures. It contains information that will not be explained any further, but which are a starting point for further investigations.
