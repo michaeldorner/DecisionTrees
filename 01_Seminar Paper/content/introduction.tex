@@ -133,7 +133,7 @@ Figure \ref{fig:machinelearningcontext} shows the machine learning context for d
 edge from parent path={(\tikzparentnode\tikzparentanchor) -- (\tikzchildnode.north)},
 every node/.style={text centered, draw=none, anchor=north, draw=none, fill=white, minimum height=1.5em},
 %level distance=1.5cm,
-level 1/.style={sibling distance=3.5cm, level distance=1cm},
+level 1/.style={sibling distance=5cm, level distance=1cm},
 level 2/.style={sibling distance=3.5cm, level distance=2cm}]
 \node (Root) {Machine Learning Algorithms} 
 child { 
@@ -141,7 +141,7 @@ child {
     child[grow=south west] {node {\dots}}
 }
 child { 
-    node [draw, dashed, text width=13em, yshift=-1.5cm] {
+    node [draw, dashed, text width=13em] {
         \begin{tikzpicture}[level 2/.style={sibling distance=2.7cm, level distance=0.75cm}] 
             \node[text width=12em, text=siemensblue] {Supervised Learning } 
             child [] {
@@ -169,10 +169,6 @@ child {
 }
 child { 
     node[draw, dashed, text width=7em] {Reinforcement Learning}
-    child[grow=south east] {node {\dots}}
-}
-child { 
-    node[draw, dashed, text width=7em] {Deep Learning}
     child[grow=south east] {node {\dots}}
 }
 ;
