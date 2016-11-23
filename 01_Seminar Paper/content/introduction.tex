@@ -64,7 +64,7 @@ For a right decision two or three if-statements are necessary. So a Python progr
 
 \newpage
 
-\begin{lstlisting}[style = siemens, language = Python, caption={[A Python implementation of a decision tree for sorting three elements]A Python implementation of a decision tree for sorting three elements $A, B, C$},label=lst:sort1]
+\begin{lstlisting}[style = fau, language = Python, caption={[A Python implementation of a decision tree for sorting three elements]A Python implementation of a decision tree for sorting three elements $A, B, C$},label=lst:sort1]
 def sort1(A, B, C):
 	if (A < B):
 		if (B < C):
@@ -92,7 +92,7 @@ print( sort1(2,0,0) )  # >> [0, 0, 2]
 \end{remark}
 
 Another way of formatting if-clauses represents a rule set which are first order logical expressions:  
-    \begin{lstlisting}[style = siemens, language = Python, caption={A Python reimplementation of the decision tree given in listing \ref{lst:sort1} as a set of first order logical rules},label=lst:sort2]
+    \begin{lstlisting}[style = fau, language = Python, caption={A Python reimplementation of the decision tree given in listing \ref{lst:sort1} as a set of first order logical rules},label=lst:sort2]
 def sort2(A, B, C):
 	if (A < B) and (B < C) : return [A, B, C]
 	if (A < B) and not (B < C) and (A < C): return [A, C, B]
@@ -105,11 +105,11 @@ def sort2(A, B, C):
 Unsurprisingly, we get six rules for $3! = 6$ different combinations and the same results as in the algorithm \texttt{sort1}. 
 
 
-This introductory example shows four main things: Decision trees
+This introductory example shows four important properties: Decision trees
 \begin{enumerate}
     \item work very well for classification and data mining.
     \item are intuitive and self-explanatory.
-    \item They are easy to implement.
+    \item are easy to implement.
     \item can be even used by business students.
 \end{enumerate}
 
@@ -143,9 +143,9 @@ child {
 child { 
     node [draw, dashed, text width=13em] {
         \begin{tikzpicture}[level 2/.style={sibling distance=2.7cm, level distance=0.75cm}] 
-            \node[text width=12em, text=siemensblue] {Supervised Learning } 
+            \node[text width=12em, text=faublue] {Supervised Learning } 
             child [] {
-                node [text width=6em, text=siemensblue] {Classification}
+                node [text width=6em, text=faublue] {Classification}
                 edge from parent[draw, solid]
             }
             child {
@@ -155,7 +155,7 @@ child {
         \end{tikzpicture}
     } % end node
     child[] {
-        node[text=siemensblue] {Decision Tree}
+        node[text=faublue] {Decision Tree}
     }    
     child[] {
         node[text width=7em] {Artificial Neural Network}
@@ -173,7 +173,7 @@ child {
 }
 ;
 \end{tikzpicture}
-\caption[The context of decision trees in machine learning with topics visited in this paper.]{The context of decision trees in machine learning with \textcolor{siemensblue}{topics visited in this paper}.}
+\caption[The context of decision trees in machine learning with topics visited in this paper.]{The context of decision trees in machine learning with \textcolor{faublue}{topics visited in this paper}.}
 \label{fig:machinelearningcontext}
 \end{figure}
 

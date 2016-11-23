@@ -83,11 +83,11 @@ Create a new tree $T$ with a single root node.\\
 \eIf{\stoppingCriterion{$X$}}{
     Mark $T$ as a leaf with the most common value in $X$ as a label.
 }{
-    $\forall a_i \in A$ find \textcolor{siemensred}{$a$} that obtain the best \splittingCriterion{$a_i, X, y$}.\\
+    $\forall a_i \in A$ find \textcolor{faured}{$a$} that obtain the best \splittingCriterion{$a_i, X, y$}.\\
     Label $n$ with $a$.\\
-    \For{each outcome \textcolor{siemensblue}{$v_i$} of \textcolor{siemensred}{$a$}}{
-        Set subtree \textcolor{siemensgreen}{$t_i$} = \treeGrowing{$\sigma_{a=v_i}X, A, y$}. \\
-        Connect the root node of $n_t$ to the subtree \textcolor{siemensgreen}{$t_i$} with an edge that is labelled as \textcolor{siemensblue}{$v_i$}.
+    \For{each outcome \textcolor{faublue}{$v_i$} of \textcolor{faured}{$a$}}{
+        Set subtree \textcolor{faugreen}{$t_i$} = \treeGrowing{$\sigma_{a=v_i}X, A, y$}. \\
+        Connect the root node of $n_t$ to the subtree \textcolor{faugreen}{$t_i$} with an edge that is labelled as \textcolor{faublue}{$v_i$}.
     }
 }
 \Return{\treePruning{$S, T, y$}}
@@ -118,26 +118,26 @@ A simplified decision tree \ref{fig:frameworktree} created by this algorithmic f
     level 2/.style={sibling distance=4cm},
     leaf/.style={isosceles triangle,dashed,shape border rotate=90,isosceles triangle stretches=true, minimum height=20mm,minimum width=20mm,inner sep=0,yshift={-20mm}}]
 \tikzstyle{every node}=[rectangle,draw]    
-\node (Root) {\textcolor{siemensred}{$a$}}
+\node (Root) {\textcolor{faured}{$a$}}
 child[child anchor=north] { 
-    node[leaf] {\textcolor{siemensgreen}{$t_1$}}
-    edge from parent node[left,draw=none] {\textcolor{siemensblue}{$v_1\;$}}
+    node[leaf] {\textcolor{faugreen}{$t_1$}}
+    edge from parent node[left,draw=none] {\textcolor{faublue}{$v_1\;$}}
 }
 child[child anchor=north] { 
-    node[leaf] {\textcolor{siemensgreen}{$t_2$}}
-    edge from parent node[right,draw=none] {\textcolor{siemensblue}{$v_2$}}
+    node[leaf] {\textcolor{faugreen}{$t_2$}}
+    edge from parent node[right,draw=none] {\textcolor{faublue}{$v_2$}}
 }
 child[child anchor=north] { 
     node[leaf, text height=1.5em] {$\dots $}
     edge from parent node[right,draw=none] {$\dots$}
 }
 child[child anchor=north] { 
-    node[leaf] {\textcolor{siemensgreen}{$t_n$}}
+    node[leaf] {\textcolor{faugreen}{$t_n$}}
     child[grow=right, xshift={10mm}] {
         node[draw=none]{Subtrees}
         edge from parent[draw=none]
         child[grow=up, yshift={7.5mm}] {
-            node[draw=none]{Values of \textcolor{siemensred}{$a$}}  
+            node[draw=none]{Values of \textcolor{faured}{$a$}}  
             edge from parent[draw=none]
             child[grow=up, yshift={-7.5mm}] {
                 node[draw=none]{Best attribute in $A$}  
@@ -145,7 +145,7 @@ child[child anchor=north] {
             } 
         }    
     }
-    edge from parent node[right,draw=none] {\textcolor{siemensblue}{$v_n$}}
+    edge from parent node[right,draw=none] {\textcolor{faublue}{$v_n$}}
 }
 ;
 \end{tikzpicture}

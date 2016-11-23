@@ -87,7 +87,7 @@
     pdfauthor={Michael Dorner},
     pdftitle={Decision Trees},
     pdfsubject={An Introduction},
-    pdfkeywords={words},
+    pdfkeywords={decision tree, dt, decision, tree},
     unicode=true
 ]{hyperref} 
 
@@ -132,7 +132,7 @@
 \fancyhead[CE]{} %zentrierte Kopfzeile
 \fancyhead[RE]{\nouppercase{\textbf{\sffamily \leftmark}}}
 
-%Kopfzeile rechts: \includegraphics[scale=0.025]{graphics/layout/siemenslogo.png}
+%Kopfzeile rechts: \includegraphics[scale=0.025]{graphics/layout/faulogo.png}
 \renewcommand{\headrulewidth}{0.4pt} %obere Trennlinie
 \fancyfoot[LE]{\thepage} %Seitennummer
 \fancyfoot[RO]{\thepage} %Seitennummer
@@ -158,15 +158,15 @@
 
 % Farben
 
-\definecolor{siemensgray}{gray}{0.5} % die Farbe grau wird definiert
+\definecolor{faugray}{gray}{0.5} % die Farbe grau wird definiert
 \definecolor{light-gray}{gray}{0.65}
 
-\definecolor{siemensyellow}{cmyk}{0.01, 0.08, 0.92, 0.01}
-\definecolor{siemensblue}{cmyk}{0.94, 0.63, 0.03, 0.05}
-\definecolor{siemensred}{cmyk}{0.02, 0.94, 0.90, 0.06}
-\definecolor{siemensorange}{cmyk}{0.01, 0.57, 0.91, 0.02}
-\definecolor{siemenscoolgray}{cmyk}{0.55, 0.31, 0.25, 0.02}
-\definecolor{siemensgreen}{cmyk}{0.83, 0.03, 0.93, 0.06}
+\definecolor{fauyellow}{cmyk}{0.01, 0.08, 0.92, 0.01}
+\definecolor{faublue}{cmyk}{0.94, 0.63, 0.03, 0.05}
+\definecolor{faured}{cmyk}{0.02, 0.94, 0.90, 0.06}
+\definecolor{fauorange}{cmyk}{0.01, 0.57, 0.91, 0.02}
+\definecolor{faucoolgray}{cmyk}{0.55, 0.31, 0.25, 0.02}
+\definecolor{faugreen}{cmyk}{0.83, 0.03, 0.93, 0.06}
 
 
 
@@ -178,16 +178,15 @@
 
 
 % Stildefinition für listings
-\lstdefinestyle{siemens} {
-	%language		= C++,
+\lstdefinestyle{fau} {
 	basicstyle		= \ttfamily\small,
 	identifierstyle	= \ttfamily\normalsize,
-	stringstyle		= \ttfamily\small\color{siemensred},
-	commentstyle	= \ttfamily\small\color{siemensgreen},
-	keywordstyle	= \ttfamily\small\color{siemensblue},
+	stringstyle		= \ttfamily\small\color{faured},
+	commentstyle	= \ttfamily\small\color{faugreen},
+	keywordstyle	= \ttfamily\small\color{faublue},
 	columns			= fullflexible,
 	showstringspaces= false,
-	emphstyle 		= \color{siemensorange},
+	emphstyle 		= \color{fauorange},
 	frame			= single,
 	morekeywords	= {REFERENCES, DATETIME},
 	emph			= {Michi},
@@ -264,29 +263,6 @@
         \end{minipage} \, {\Huge \bfseries ''} 
     \end{center}
 }
-
-\newcommand{\location}{\textbf{\scshape Location}}
-\newcommand{\indoors}{{\scshape Indoors}}
-\newcommand{\outdoors}{{\scshape Outdoors}}
-
-
-\newcommand{\motion}{\textbf{\scshape Motion}}
-\newcommand{\stationary}{{\scshape Stationary}}
-\newcommand{\moving}{{\scshape Moving}}
-\newcommand{\bike}{{\scshape Bike}}
-\newcommand{\car}{{\scshape Car}}
-
-
-\newcommand{\conversation}{\textbf{\scshape Conversation}}
-\newcommand{\noise}{{\scshape Noise}}
-\newcommand{\conversationclass}{{\scshape Conversation}}
-
-
-\newcommand{\grouping}{\textbf{\scshape Grouping}}
-\newcommand{\group}{{\scshape Group}}
-\newcommand{\individual}{{\scshape Individual}}
-
-
 
 \newcommand{\situationTable}[5]
 {
